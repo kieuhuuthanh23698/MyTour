@@ -3,23 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->helper('url');
+	}
+
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$giaodien['header'] = $this->load->view('home/header',NULL,TRUE);
+		$giaodien['footer'] = $this->load->view('home/footer',NULL,TRUE);
+		$giaodien['body'] = $this->load->view('page/trangchu',NULL,TRUE);
+		$giaodien['footer2'] = $this->load->view('page/footer2',NULL,TRUE);
+		$this->load->view('home/masterHome',$giaodien);
+	}
+
+	public function search()
+	{
+		$giaodien['header'] = $this->load->view('home/header',NULL,TRUE);
+		$giaodien['footer'] = $this->load->view('home/footer',NULL,TRUE);
+		$giaodien['body'] = $this->load->view('page/search',NULL,TRUE);
+		$giaodien['footer2'] = $this->load->view('page/footer2',NULL,TRUE);
+		$this->load->view('home/masterHome',$giaodien);
 	}
 }
