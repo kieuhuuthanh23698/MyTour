@@ -19,24 +19,24 @@
     }
 </style>
 <div class="list-bills mt-3">
-    <table class="table table-bordered text-center">
+    <table class="table table-bordered text-center" id="billsTable">
         <thead>
-            <th>id</th>
             <th>Tên Khách Hàng</th>
             <th>Số Điện Thoại</th>
             <th>Email</th>
             <th>Địa Chỉ</th>
             <th>Ngày Đặt</th>
+            <th>Trạng Thái</th>
             <th>Chức Năng</th>
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
                 <td>Nguyễn Văn A</td>
                 <td>038484848</td>
                 <td>A@gmail.com</td>
                 <td>thành Phố Hcm</td>
                 <td>23/4/1999</td>
+                <td>Thành Công</td>
                 <td>
                     <button class="btn btn-primary">Chi Tiết</button>
                     <button class="btn btn-success">In Hóa Đơn</button>
@@ -46,3 +46,8 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(document).ready( function () {
+        $('#billsTable').DataTable();
+    } );
+</script>
