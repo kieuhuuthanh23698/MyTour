@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Seasonal Foods</title>
+        <title>My Tour</title>
         <link type="image/x-icon" rel="shortcut icon" href="images/logo/logo-face.png" />
         <link type="image/x-icon" rel="icon" href="images/logo/logo-face.png"/>
         <meta charset="utf-8"/>
@@ -28,6 +28,7 @@
                     <ul>
                         <li><a href="<?php echo base_url()?>"><span class="home"><i class="fas fa-home"></i></span>Trang Chủ</a></li>
                         <li><a href="#"><span class="admin"><i class="fas fa-user-tie"></i></span><?php echo isset($_SESSION["admin"])?"":"" ?></a></li>
+                        
                     </ul>
                 </div>
             </nav>
@@ -49,6 +50,7 @@
                             </ul>
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
+                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Home</a></li>
                         <li><a href="<?php echo base_url()?>admin/products"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         
                     </ul>
