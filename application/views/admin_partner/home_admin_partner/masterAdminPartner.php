@@ -51,8 +51,14 @@
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Home</a></li>
+<<<<<<< HEAD
                         <li><a href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         
+=======
+                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Tài khoảng</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Phòng</a></li>
+                        <li><a href="<?php echo base_url()?>admin/products"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
+>>>>>>> 5eae852aa6421e4b45fc939dff98044e8364805b
                     </ul>
                 </div>
                 <div class="col-md-9 item-content">
