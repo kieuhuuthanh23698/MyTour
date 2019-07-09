@@ -23,8 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://localhost/www/Web-MyTour/';
-$config['base_url'] = 'https://kieuhuuthanh.com.vn/Web-MyTour/';
+$config['base_url'] = 'https://mytour.com.vn/MyTour/';
 
 /*
 |--------------------------------------------------------------------------

@@ -50,16 +50,16 @@
                             </ul>
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
-                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản lÝ Tài khoản</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                     </ul>
                 </div>
-                <div class="col-md-9 item-content">
+                <!-- <div class="col-md-9 item-content">
+                    <?php echo isset($body)? $body:"";?>
                     
-                    
-                </div>
+                </div> -->
             </div>
       
         

@@ -7,15 +7,18 @@
 	<link rel="stylesheet" href="https://betahms.mytour.vn/dist/app.2d290b316b5a2f7d1e30.css" type="text/css"> 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:500,700&amp;subset=vietnamese" type="text/css">  
 </head> 
-<body class="hold-transition login-page skin-blue">  
-	<video id="bgvid" playsinline="" autoplay="" muted="" loop="">
-		<source src="https://s3-ap-southeast-1.amazonaws.com/mytourcdn.com/video/bg-video-mp4.mp4" type="video/mp4"> </video> <div class="video-bg"></div>   <div class="login-box">
+<body class="hold-transition login-page skin-blue" background="<?php echo base_url()?>/public/images/beach.jpg" style="background-size: cover;">  
+	<!-- <video id="bgvid" playsinline="" autoplay="" muted="" loop="">
+		<source src="https://s3-ap-southeast-1.amazonaws.com/mytourcdn.com/video/bg-video-mp4.mp4" type="video/mp4"> 
+	</video>  -->
+
+<!-- 		<div class="video-bg"><img id = "bgvid" src="<?php echo base_url()?>/public/images/beach.jpg"></div>   -->
+		 <div class="login-box">
 			<div class="login-box-body">
 				<h1>ĐĂNG NHẬP</h1> 
 				<p class="login-box-msg" style="color: #8a98a6">Chưa có tài khoản? 
-					<a href="http://betahms.mytour.vn/join-with-us" class="text-blue" style="font-weight: 700">Đăng ký</a> ngay</p>
-					<form method="POST" action="http://betahms.mytour.vn/auth/login">
-						<input type="hidden" name="_token" value="aqdfKcLtvLEbyntVDn8cyrbKE92RKdtNEwULnyNb"> 
+					<a href="" class="text-blue" style="font-weight: 700">Đăng ký</a> ngay</p>
+					<form method="POST" action="<?php echo base_url();?>admin_partner/loginpartner/login"> 
 						<div class="form-group has-feedback "> 
 							<label style="color:#3f556b">TÀI KHOẢN</label>
 							<input type="text" name="use_login" value="" autofocus="" class="form-control"> 
@@ -36,7 +39,7 @@
 								</div> 
 							</div> 
 							<div class="col-xs-5">
-								<a href="http://betahms.mytour.vn/auth/password/reset" class="text-red pull-right"> Quên mật khẩu</a> 
+								<a href="" class="text-red pull-right"> Quên mật khẩu</a> 
 							</div> 
 							<div class="col-xs-12">
 								<button type="submit" class="btn btn-primary btn-block btn-flat">ĐĂNG NHẬP</button>
@@ -45,38 +48,6 @@
 					</form>
 				</div> 
 			</div> 
-			<div class="login-box-footer row mar-top-12"> 
-				<div class="single-partner">
-					<img src="dist/img/partner-06.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-09.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-04.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-11.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-07.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-10.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-03.png" alt="">
-				</div>
-				<div class="single-partner">
-					<img src="dist/img/partner-05.png" alt="">
-				</div> 
-				<div class="single-partner">
-					<img src="dist/img/partner-08.png" alt="">
-				</div>
-				<div class="single-partner">
-					<img src="dist/img/partner-02.png" alt="">
-				</div> 
-			</div>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>  
 		</body>
