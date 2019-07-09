@@ -18,11 +18,11 @@ class M_data extends CI_Model {
         return $this->db->insert_id();
     }
     public function update($id, $table, $data){
-        $this->db->where('id',$id);
+        $this->db->where('id_destination',$id);
         $this->db->update($table, $data);
     }
     public function delete($id,$table){
-        $this->db->where('id', $id);
+        $this->db->where('id_destination', $id);
         $this->db->delete($table); 
     }
 }

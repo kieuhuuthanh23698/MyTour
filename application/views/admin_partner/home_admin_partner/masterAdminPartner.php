@@ -1,3 +1,4 @@
+<?php if(isset($_SESSION['partner'])) {?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +12,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/fontawesome-all.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/animate.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
+<!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <script src="<?php echo base_url() ?>public/js/jquery-3.3.1.min.js"></script>
         <script src="<?php echo base_url() ?>public/js/bootstrap.min.js"></script>
@@ -72,3 +74,7 @@
         })
     </script>
 </html>
+<?php } 
+    else
+        redirect(base_url('admin_partner/loginpartner'));
+?>

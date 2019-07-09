@@ -24,7 +24,7 @@ class loginpartner extends CI_Controller {
 	{
 		$username = $this->input->post('use_login');
  		$password = $this->input->post('password');
- 		$password = md5($password);
+ 		//$password = md5($password);
  		$query = "select * from destination where destinationUser = '".$username."' and destinationPassword = '".$password."'";
 		$result = $this->M_data->load_query($query);
 		if(count($result) > 0)
