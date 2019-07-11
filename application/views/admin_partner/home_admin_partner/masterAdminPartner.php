@@ -1,3 +1,4 @@
+<?php if(isset($_SESSION['partner'])) {?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +11,8 @@
         
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/fontawesome-all.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/animate.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
+<!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
         
@@ -51,16 +54,16 @@
                             </ul>
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
-                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản lÝ Tài khoản</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                     </ul>
                 </div>
-                <div class="col-md-9 item-content">
+                <!-- <div class="col-md-9 item-content">
+                    <?php echo isset($body)? $body:"";?>
                     
-                    
-                </div>
+                </div> -->
             </div>
       
         
@@ -73,3 +76,7 @@
         })
     </script>
 </html>
+<?php } 
+    else
+        redirect(base_url('admin_partner/loginpartner'));
+?>
