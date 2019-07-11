@@ -135,7 +135,10 @@
                     
                 </div>
                 <div class="room-time mt-4">
-                    
+                    <p>Từ Ngày: </p>
+                    <input type="text" id="timeCheckIn" class="form-control"/>
+                    <p>Đến Ngày: </p>
+                    <input type="text" id="timeCheckOut" class="form-control"/>
                     <p><strong>Số lượng Phòng Còn: </strong><span>6 Phòng</span></p>
                 </div>
                 <div class="mt-4">
@@ -169,4 +172,23 @@
     #addRoom .room-inf>p{
         width: 50%;
     }
+    #addRoom .room-time input{
+        width: 50%;
+    }
 </style>
+<script>
+    $(function(){
+        $('#timeCheckIn').datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: new Date(),
+            onSelect: function(date) {
+                $( "#timeCheckOut" ).datepicker( "option", "minDate", date );
+//                $( "#timeCheckOut" ).datepicker( "option", "maxDate","+1m" );
+            }
+        });
+        $('#timeCheckOut').datepicker({
+            dateFormat: "dd-mm-yy",
+            minDate: new Date(),
+        });
+    })
+</script>

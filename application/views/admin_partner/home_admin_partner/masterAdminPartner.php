@@ -11,12 +11,14 @@
         
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/fontawesome-all.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/animate.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/jquery-ui.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
 <!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
         
         <script src="<?php echo base_url() ?>public/js/jquery-3.3.1.min.js"></script>
+        <script src="<?php echo base_url() ?>public/js/jquery-ui.min.js"></script>
+        
         <script src="<?php echo base_url() ?>public/js/bootstrap.min.js"></script>
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
@@ -60,10 +62,6 @@
                         <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                     </ul>
                 </div>
-                <!-- <div class="col-md-9 item-content">
-                    <?php echo isset($body)? $body:"";?>
-                    
-                </div> -->
             </div>
       
         
