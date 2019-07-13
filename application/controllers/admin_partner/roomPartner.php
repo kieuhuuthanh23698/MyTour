@@ -14,7 +14,7 @@ class roomPartner extends CI_Controller {
 
 	public function index()
 	{
-		$id = $this->session->userdata('partner')[0]['id_destination'];
+		$id = $this->session->userdata('partner')['id_destination'];
 		$data['conven'] = $this->M_data->load_query("select * from convenience");
 		$data['roomType'] = $this->M_data->load_query("select * FROM roomtype WHERE id_roomType NOT IN (SELECT id_room FROM roomtypedetail WHERE id_dest = ".$id.")");
         $data['room'] = $this->M_data->load_query("select * FROM roomtype, roomtypedetail WHERE roomtype.id_roomType = roomtypedetail.id_room AND roomtypedetail.id_dest = ".$id); 

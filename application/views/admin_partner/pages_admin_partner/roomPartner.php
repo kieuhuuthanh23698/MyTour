@@ -125,7 +125,7 @@
             <tr id="<?php echo $key['id_room']?>">
                 <td><?php echo $key['roomTypeName']?></td>
                 <td><img width="200" src="<?php echo base_url()?>/public/images/products/<?php echo $key['imageRoom']?>"></td>
-                <td><?php echo $key['area']?> m<sup>2</sup></sub></td>
+                <td><?php echo $key['area']?> m<sup>2</sup></td>
                 <td><?php echo $key['view']?></td>
                 <td><?php echo $key['bed']?></td>
                 <td><?php echo $key['quantum']?> Người</td>
@@ -157,14 +157,31 @@
         <button type="button" class="close" data-dismiss="modal">&times;<i class="fas fa-tractor"></i></button>
       </div>
       <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">buzz</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#references" role="tab" data-toggle="tab">references</a>
+  </li>
+</ul>
 
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="profile">...</div>
+  <div role="tabpanel" class="tab-pane fade" id="buzz">bbb</div>
+  <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
+</div>
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#thongtin">Thông tin</a></li>
             <li><a data-toggle="tab" href="#dichvu">Dịch vụ</a></li>
             <li><a data-toggle="tab" href="#chinhsach">Chính sách</a></li>
         </ul>
 
-
+        
         <div class="tab-content">
             <div id="thongtin" class="tab-pane fade in active">
                 <div class="form-group has-info">
