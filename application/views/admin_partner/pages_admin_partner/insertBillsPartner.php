@@ -124,14 +124,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <select class="form-control">
+                <select id="listRoomSelect" class="form-control">
               
                 </select>
                 <div class="room-inf mt-4">
-                    <p><strong>Diện Tích: </strong><span>20 m<sup>2</sup></span></p>
-                    <p><strong>View: </strong><span>Hướng Phố</span></p>
-                    <p><strong>Giường: </strong><span>2 giường đôi lớn</span></p>
-                    <p><strong>Giá: </strong><span>2.000.000 đ</span></p>
+                    <p class="area"><strong>Diện Tích: </strong><span></span> m<sup>2</sup></p>
+                    <p class="view"><strong>View: </strong><span></span></p>
+                    <p class="bed"><strong>Giường: </strong><span></span></p>
+                    <p class="price"><strong>Giá: </strong><span></span> đ</p>
                     
                 </div>
                 <div class="room-time mt-4">
@@ -139,12 +139,12 @@
                     <input type="text" id="timeCheckIn" class="form-control"/>
                     <p>Đến Ngày: </p>
                     <input type="text" id="timeCheckOut" class="form-control"/>
-                    <p><strong>Số lượng Phòng Còn: </strong><span>6 Phòng</span></p>
+                    <p class="roomCanOrder"><strong>Số lượng Phòng Còn: </strong><span></span> Phòng</p>
                 </div>
-                <div class="mt-4">
+                <div class="quantumRoom mt-4">
                     <p><strong>Số Lượng phòng: </strong></p>
                     <input class="form-control" type="number" min="1"/>
-                    <p class="mt-5"><strong>Thành Tiền: </strong><span>2.000.000 đ</span></p>
+                    <p class="mt-5 money"><strong>Thành Tiền: </strong><span></span> đ</p>
                 </div>
           
             </div>
@@ -178,8 +178,12 @@
 </style>
 <script>
     $(function(){
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        $('#timeCheckIn').val(now.getDate() + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
+        $('#timeCheckOut').val((now.getDate()) + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
         $('#timeCheckIn').datepicker({
-            dateFormat: "dd-mm-yy",
+            dateFormat: "dd/mm/yy",
             minDate: new Date(),
             onSelect: function(date) {
                 $( "#timeCheckOut" ).datepicker( "option", "minDate", date );
@@ -187,8 +191,35 @@
             }
         });
         $('#timeCheckOut').datepicker({
-            dateFormat: "dd-mm-yy",
+            dateFormat: "dd/mm/yy",
             minDate: new Date(),
         });
     })
+</script>
+<script>
+    $(document).ready(function(){
+        $.get( "<?php echo base_url()?>admin_partner/insertBillsPartner/getListRoom", function( data ) {
+            var obj = jQuery.parseJSON(data);
+            for(var room of obj) {
+                $option = $('<option value="'+room.id_roomType+'">'+room.roomTypeName+'</option>');
+                $("#listRoomSelect").append($option);
+            }
+            $(".room-inf .area span").text(obj[0].area);
+            $(".room-inf .view span").text(obj[0].view);
+            $(".room-inf .bed span").text(obj[0].bed);
+            $(".room-inf .price span").text(formatCurrency(obj[0].price.toString()));
+            
+            var roomCanOrder = obj[0].quantum;
+            if(obj[0].total != null){
+                roomCanOrder = obj[0].quantum - obj[0].total;
+            }
+            $(".room-time .roomCanOrder span").text(roomCanOrder);
+            $(".quantumRoom input").attr("max",roomCanOrder);
+        });
+    })
+    function formatCurrency(number){
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
+        return  n2.split('').reverse().join('');
+    }
 </script>
