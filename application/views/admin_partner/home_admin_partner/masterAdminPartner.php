@@ -3,23 +3,33 @@
 <html>
     <head>
         <title>My Tour</title>
-        <link type="image/x-icon" rel="shortcut icon" href="images/logo/logo-face.png" />
-        <link type="image/x-icon" rel="icon" href="images/logo/logo-face.png"/>
+        <link type="image/x-icon" rel="shortcut icon" href="<?php echo base_url()?>public/images/logo/favicon.ico" />
+        <link type="image/x-icon" rel="icon" href="<?php echo base_url()?>public/images/logo/favicon.ico"/>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/bootstrap.css"/>
-        
+            
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/fontawesome-all.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/animate.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
 <!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>public/css/jquery.dataTables.min.css">
         <script src="<?php echo base_url() ?>public/js/jquery-3.3.1.min.js"></script>
         <script src="<?php echo base_url() ?>public/js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" charset="utf8" src="<?php echo base_url()?>public/js/jquery.dataTables.min.js"></script>
 
     </head>
     <body>
+        <style type="text/css">
+            .sub-list{
+                margin-top: 35px;
+            }
+        </style>
         <header>
             <nav>
                 <div class="logo">
@@ -54,14 +64,9 @@
                         <li id="gray">Chức Năng Quản Trị</li>
                         <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
-                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản lÝ Tài khoản</a></li>
-                        <li><a href="<?php echo base_url()?>admin_partner/homeAdmin"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/roomPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                     </ul>
                 </div>
-                <!-- <div class="col-md-9 item-content">
-                    <?php echo isset($body)? $body:"";?>
-                    
-                </div> -->
             </div>
       
         

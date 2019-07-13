@@ -30,6 +30,7 @@ class loginpartner extends CI_Controller {
 		if(count($result) > 0)
 		{
  			$this->session->set_userdata('partner', $result);
+ 			$this->session->set_userdata('', $result);
  			redirect(base_url('admin_partner/homeAdmin'));
  		}
  		else

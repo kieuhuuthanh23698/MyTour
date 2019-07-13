@@ -36,3 +36,49 @@ login vào trang admin *
 
 + tt khách sạn, phong thêm xóa sửa
 cập nhật thông tin khách sạn : loại hình dịch vụ , tiện nghi khách sạn, 
+
+
+partner :
+	tên 
+	sdt
+	email
+	user
+	pass
+
+
+
+Khách sạn :
+	tên ks
+	loại hình
+	địa chỉ
+	hạng sao
+	canel time
+	ảnh hotel
+	giới thiệu
+	tiện nghi
+	dịch vụ
+	chính sách khách sạn
+loại phòng :
+	tên phòng
+	diện tích
+	hướng
+	giường
+	số người tối đa
+	tiện nghi phòng
+	chính sách phòng
+		- chính sách phụ thu : 
+			+ 1 list các điều kiện và mức phí (table)
+			+ lưu ý (un order list)
+		- chính sách hủy :
+			+ 1 list các chính sách (un oder list ) 
+
+
+
+SELECT `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (`quantum` -  COUNT(`roomquantum`)) AS SoLuongPhongTrong FROM `roomtypedetail` 
+LEFT JOIN (SELECT * FROM `billdetail`, `bills` WHERE ((`dateFrom` BETWEEN '2019-07-14' AND '2019-07-15') OR (`dateTo` BETWEEN '2019-07-14' AND '2019-07-15')) 
+AND `bills`.`id_bills` = `billdetail`.`id_bill` AND `bills`.`id_dest` = 1) AS a
+ON `roomtypedetail`.`id_room` = a.id_room AND `roomtypedetail`.`id_dest` = 1
+GROUP BY `id_room`
+
+
+dest nhieu room , romm : chinh sach phu thu, luu y, chinh sach huy

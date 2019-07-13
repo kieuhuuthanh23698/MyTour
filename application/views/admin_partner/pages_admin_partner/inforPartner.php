@@ -5,6 +5,14 @@
             <hr class="dark header">
         </div>
     </div>
+    <style type="text/css">
+        .form-control{
+            height: 34px !important;
+        }
+        .title-page{
+            margin-top: 125px;
+        }
+    </style>
 
     <div class="box">
         <div class="box-header" style="text-align: center;">
@@ -157,7 +165,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Password : </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="password" value="<?php echo $partner['destinationPassword'];?>">
+                                <input type="password" class="form-control" name="password" value="<?php echo $partner['destinationPassword'];?>">
                                 <p class="help-block red"></p>
                             </div>
                         </div>
