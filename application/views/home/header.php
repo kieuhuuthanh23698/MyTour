@@ -1,90 +1,131 @@
-<div class="navbar ">
-    <div class="container">
-        <div class="row">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
-                <img src="https://staticproxy.mytourcdn.com/160x58,q90/themes/images/logo-mytour.png" alt="" class="img-responsive">
-                <i class="li-chevron-up"></i>
-            </button>
-            <div class="logo">
-                <a href="/"><img src="https://staticproxy.mytourcdn.com/160x58,q90/themes/images/logo-mytour.png" alt="" class="img-responsive"></a>
+<header>
+    <div class="container header-top">
+        <div class="contact">
+            <p><i class="fas fa-phone"></i><strong>Hà Nội: </strong>098477383883</p>
+            <p><i class="fas fa-phone"></i><strong>TP Hồ Chí Minh: </strong>098477383883</p>
+        </div>
+        <ul>
+            <li><i class="far fa-comments"></i></li>
+            <li><a href="#"></a><i class="far fa-bell"></i></li>
+            <li id="user-li"><button id="user"><i class="fas fa-user-circle"></i></button><span id="username"><?php echo isset($_SESSION["user"])?$_SESSION["user"]["username"]:"" ?></span>
+                <?php if(isset($_SESSION["user"])){
+                echo('
+                <ul class="sub-menu">
+                <li></li>
+                <li><a href="'.base_url().'Handling/thongtintaikhoan">Thông Tin Tài Khoản</a></li>
+                            <li><a href="#">Danh Sách Đơn Hàng</a></li>
+                            <li><a href="'.base_url().'Handling/logout">Đăng Xuất</a></li>
+                            
+                        </ul>
+                            ');
+                        } ?>
+                        
+                        
+                    </li>
+                </ul>
             </div>
-
-                            <!-- .navbar-collapse -->
-                <div class="collapse navbar-collapse" id="menu-collapse">
-                    <ul class="nav navbar-nav">
-                                                    <li class="">
-                                <a href="/news">
-                                    <i class="li li-percent"></i> Ưu đãi
-                                </a>
-                            </li>
-                                                    <li class="active">
-                                <a href="/">
-                                    <i class="li li-apartment"></i> Khách sạn
-                                </a>
-                            </li>
-                                                    <li class="">
-                                <a href="/tour">
-                                    <i class="li li-ticket"></i> Tour
-                                </a>
-                            </li>
-                                                    <li class="">
-                                <a href="/location">
-                                    <i class="li li-library"></i> Cẩm nang du lịch
-                                </a>
-                            </li>
-                                            </ul>
+            <nav class="container logo-menu">
+                <div class="logo">
+                    <a href="<?php echo base_url() ?>"><img src="<?php echo base_url() ?>/public/images/logo/logo.png"/></a>
                 </div>
-                <!-- /.navbar-collapse -->
+                <div class="menu">
+                    <ul>
+                        <li><a class="<?php echo isset($sanpham)? "active":" "; ?>" href="<?php echo base_url() ?>Handling/sanpham">Khách Sạn</a></li>
+                        <li><a class="" href="">Ưu Đãi</a></li>
+                        <li><a class="" href="#">Tour</a></li>
+                        <li><a class="" href="#">Cẩm Nang Du Lịch</a></li>
+                        <li><a class="" href="<?php echo base_url() ?>Handling/lienhe">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <span id="list-icon">
+                    <i class="fas fa-th-list"></i>
+                </span>
+            </nav>
+        </header>
+    <?php if(!isset($_SESSION["user"])){
+        
+        echo ('<div class="signin" id="signin">
+            <div class="delete-btn">
+                <button id="delete"><i class="fas fa-times"></i></button>
+            </div>
+            <h1 class="h2 text-center">Welcome Back</h1>
+            <p class="text-center">Fill out the form to get started</p>
+            <form class="mt-5" action ="'.base_url().'Handling/login" method = "post">
+                <div>
+                    <span><i class="fas fa-user"></i></span>
+                    <input type="text" name="username" id="username" placeholder="username"/>
+                </div>
+                <div>
+                    <span><i class="fas fa-lock"></i></span>
+                    <input type="password" name="password" id="password" placeholder="password"/>
+                </div>
+                <div class="forget">
+                    <a href="#">forget password</a>
+                </div>
+                <input type="submit" class="login" value="Login"/>
+            </form>
+            <p class="text-center mt-1" style="font-size: 14px">Do not have an account?<button id="signup-btn" class="sign-btn"> Signup</button></p>
+            <div class="signin-img">
+                <img width="100%" src="'.base_url().'public/images/banner/signin-3.png"/>
+            </div>
+        </div>
+        <div class="signin" id="signup">
+            <div class="delete-btn">
+                <button id="delete"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="scroll">
+            <h1 class="h2 text-center">Welcome To Front</h1>
+            <p class="text-center">Fill out the form to get started</p>
+            <form class="mt-5">
+                <div>
+                    <span><i class="fas fa-user"></i></span>
+                    <input type="text" name="username" id="username" placeholder="username"/>
+                </div>
+                <div>
+                    <span><i class="fas fa-lock"></i></span>
+                    <input type="password" name="password" id="password" placeholder="password"/>
+                </div>
+                <div>
+                    <span><i class="fas fa-lock"></i></span>
+                    <input type="password" name="repassword" id="repassword" placeholder="repassword"/>
+                </div>
+                <div>
+                    <span><i class="fas fa-phone"></i></span>
+                    <input type="text" name="phone" id="phone" placeholder="phone number"/>
+                </div>
+                <div>
+                    <span><i class="fas fa-envelope"></i></span>
+                    <input type="email" name="email" id="email" placeholder="email"/>
+                </div>
+                <input style="margin-top: 20px" type="submit" class="login" value="Signup"/>
+                
+            </form>
+            <p class="text-center mt-1" style="font-size: 14px">Already have an account<button id="signin-btn" class="sign-btn"> Signin</button></p>
             
-            <ul class="nav navbar-nav navbar-right">
-                <li class="icon-block working-time">
-                    <div class="wrapper">
-                        <img class="img-responsive" src="https://staticproxy.mytourcdn.com/0x0,q90/themes/images/icon-phone-grp.png" alt="">
-                        <div class="help">
-                            <p><strong>Hà Nội:</strong> 024 7109 9999</p>
-                            <p><strong>TPHCM:</strong> 028 7109 9998</p>
-                        </div>
-                    </div>
-                </li>
-                                <li class="icon-block feedback">
-                    <a href="#" mytour-ext="ajax-modal" modal-name="modal-feed-back"><i class="li-bubbles"></i></a>
-                </li>
-                <li class="icon-block notification">
-                    <a class="dropdown-toggle" onclick="removeCountInvite('notify_invite_friend')" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="li-alarm"></i>
-                                            </a>
-                    <ul class="dropdown-menu notification-list scroll-y-t ps ps--theme_default" data-ps-id="de9e5bc2-fbeb-ec14-6df7-ed35ac856178">
-                                                                                                    
-                       <!--  <li class="new notify-item">
-                            <span class="notification-close">
-                                <i class="li-cross"></i>
-                            </span>
-                            <a class="notification-content" mytour-ext="ajax-modal" modal-name="modal-feed-back">
-                                <i class="li-bubbles"></i>
-                                <p> Cảm nghĩ của bạn về website, ứng dụng cũng như dịch vụ của Mytour.vn</p>
-                                <span>Viết đánh giá</span>
-                            </a>
-                        </li> -->
-                                                                        <!--  -->
-
-                                                <li class="alert-fh new notify-item" data-count-notify="0">
-                        </li>
-                        <!-- Sign-up to get vpoint -->
-                                                <!-- End sign-up to get vpoint -->
-                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></ul>
-                </li>
-                <li class="dropdown account ">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="li-user mg-r-10"></i><i class="li-chevron-down"></i>
-                                            </a>
-                    <ul class="dropdown-menu">
-                                                    <li class="p_login btn-show-login" data-page="home"><a href="javascript:;" mytour-ext="ajax-modal" modal-name="modal-login">Đăng nhập</a>
-                            </li>
-                            <li class="p_login" data-page="home"><a href="/sign-up">Đăng ký</a></li>
-                            <li><a href="/favorite-hotels" class="events-tracking" data-category="Menu" data-action="Item Click" data-label="Khách sạn yêu thích">Khách sạn yêu thích</a></li>
-                                            </ul>
-                </li>
-                            </ul>
-
-                    </div>
-    </div><!-- /.container -->
-</div>
+            </div>
+            <div class="signin-img">
+                <img width="100%" src="'. base_url().'public/images/banner/signin-3.png"/>
+            </div>
+        </div>');
+            } ?>
+<!--
+<script>
+    $(document).ready(function(){
+        $('#search-text').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                searchAction();
+            }
+        });
+        $("#search-button").on("click",function(){
+            searchAction();
+        });
+        function searchAction(){
+            var search = $("#search-text").val();
+            window.sessionStorage.setItem("search",search);
+            if(window.location.pathname != "/www/TCWEB/SeasonalFoods2/Handling/sanpham"){
+                window.location.href = "<?php echo base_url() ?>Handling/sanpham";
+            }
+        }
+    });
+</script>-->
