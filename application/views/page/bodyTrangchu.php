@@ -4,10 +4,10 @@
             <img src="<?php echo base_url()?>public/images/banner/5.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+            <img src="<?php echo base_url()?>public/images/banner/5.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+            <img src="<?php echo base_url()?>public/images/banner/5.png" class="d-block w-100" alt="...">
         </div>
     </div>
     <div class="container banner-content">
