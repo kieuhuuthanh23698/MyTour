@@ -108,6 +108,23 @@
 
 </style>
 
+<style type="text/css">
+                .detail-amenities-list{
+                    list-style-type: none;
+                }
+                .li-air-conditioner:before{
+                    content:"\e9eb";
+                }
+                #dichvu ul{
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                #dichvu li{
+                    width: 50%;
+                    
+                }
+</style>
+
 <div class="list-bills mt-3">
     <table class="table table-bordered text-center" id="roomsTable">
         <thead>
@@ -148,203 +165,182 @@
 
 <!-- MODAL THÊM LOẠI PHÒNG MỚI -->
 <div id="modalAddRoom" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Thêm loại phòng mới</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;<i class="fas fa-tractor"></i></button>
-      </div>
-      <div class="modal-body">
-        <ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">buzz</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#references" role="tab" data-toggle="tab">references</a>
-  </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="profile">...</div>
-  <div role="tabpanel" class="tab-pane fade" id="buzz">bbb</div>
-  <div role="tabpanel" class="tab-pane fade" id="references">ccc</div>
-</div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#thongtin">Thông tin</a></li>
-            <li><a data-toggle="tab" href="#dichvu">Dịch vụ</a></li>
-            <li><a data-toggle="tab" href="#chinhsach">Chính sách</a></li>
-        </ul>
-
-        
-        <div class="tab-content">
-            <div id="thongtin" class="tab-pane fade in active">
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Tên loại phòng</label>
-                    <div class="col-sm-12">
-                        <select id="roomType" class="select-size" name="roomType">
-                            <?php foreach ($roomType as $key) {?>
-                                <option value="<?php echo $key['id_roomType']?>"><?php echo $key['roomTypeName']?></option>
-                            <?php }?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Images</label>
-                    <div class="col-sm-12">
-                        <input id="image"type="file" name="imageRoom">
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Diện tích (m<sup>2</sup>)</label>
-                    <div class="col-sm-12">
-                        <input id="area" type="number" name="area" min="1">
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Hướng</label>
-                    <div class="col-sm-12">
-                        <input id="view" type="text" name="view">
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Giường</label>
-                    <div class="col-sm-12">
-                        <input id="bed" type="text" name="bed">
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Số người tối đa</label>
-                    <div class="col-sm-12">
-                        <input id="quantum" type="text" name="quantum">
-                    </div>
-                </div>
-
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Giá 1 đêm</label>
-                    <div class="col-sm-12">
-                        <input id="price" type="text" name="price">
-                    </div>
-                </div>
-              
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm loại phòng mới</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;<i class="fas fa-tractor"></i></button>
             </div>
-            <style type="text/css">
-                .detail-amenities-list{
-                    list-style-type: none;
-                }
-                .li-air-conditioner:before{
-                    content:"\e9eb";
-                }
-                #dichvu ul{
-                    display: flex;
-                    flex-wrap: wrap;
-                }
-                #dichvu li{
-                    width: 50%;
-                    
-                }
-            </style>
-            <div id="dichvu" class="tab-pane fade">
-                <ul class="detail-amenities-list" style="margin-top:10px">
-                    <?php foreach ($conven as $key) {?>
-                    <li class="active">
-                        <span  class="dichvu">
-                            <input name="dv" value="<?php echo $key['id_convenience']?>" type="checkbox">
-                            <?php echo $key['icon_conven']?>
-                            </input>
-                        </span>
-                        <span><?php echo $key['convenienceName']?></span>
+
+            <div class="modal-body">
+
+                <!-- Tab panes -->
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#thongtin" role="tab" data-toggle="tab">Thông tin</a>
                     </li>
-                    <?php }?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dichvu" role="tab" data-toggle="tab">Dịch vụ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#chinhsach" role="tab" data-toggle="tab">Chính sách</a>
+                    </li>
                 </ul>
-            </div>
-            <div id="chinhsach" class="tab-pane fade">
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Chính sách phụ thu</label>
-                    <div class="col-sm-12">
-                        <input id="dieuKien" type="text" name="dieuKien" placeholder="Điều kiện">
-                        <input id="mucPhi" type="text" name="mucPhi" placeholder="Mức phí">
-                        <button id="addchinhsachPhuThu" class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
 
-                        <table id="tablePolicy" class="table" cellpadding="0" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th width="50%">Điều kiện</th>
-                                    <th width="50%">Mức phí (1 đêm)</th>
-                                    <th width="50%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Từ 10 đến 12 tuổi</td>
-                                    <td>100,000 VNĐ</td>
-                                    <td><i class="fas fa-trash-alt fa-sm"></td>
-                                </tr>
+                <div class="tab-content">
 
-                                <tr>
-                                    <td>Người lớn</td>
-                                    <td>100,000 VNĐ</td>
-                                    <td><i class="fas fa-trash-alt fa-sm"></td>
-                                </tr>
+                    <div role="tabpanel" class="tab-pane in active" id="thongtin">
+              
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Tên loại phòng</label>
+                            <div class="col-sm-12">
+                                <select id="roomType" class="select-size" name="roomType">
+                                    <?php foreach ($roomType as $key) {?>
+                                        <option value="<?php echo $key['id_roomType']?>"><?php echo $key['roomTypeName']?></option>
+                                    <?php }?>
+                                </select>
+                            </div>
+                        </div>
 
-                            </tbody>
-                        </table>
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Images</label>
+                            <div class="col-sm-12">
+                                <input id="image"type="file" name="imageRoom">
+                            </div>
+                        </div>
 
-                    </div>
-                </div>
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Diện tích (m<sup>2</sup>)</label>
+                            <div class="col-sm-12">
+                                <input id="area" type="number" name="area" min="1">
+                            </div>
+                        </div>
 
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Lưu ý</label>
-                    <div class="col-sm-12">
-                        <input id="luuY" type="text" multiple="multiple" name="luuY" placeholder="Lưu ý">
-                        <button id="addListLuuY"class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
-                        <div id="listLuuY">
-                            <ul>
-<!--                                 <li><i class="fas fa-trash-alt fa-sm"></i>Các mức phí trên đã bao gồm thuế phí</li>
-                                <li><i class="fas fa-trash-alt fa-sm"></i>Giường phụ không áp dụng cho loại phòng FAMILY ( 4 khách) (Private Sales)</li>
-                                <li><i class="fas fa-trash-alt fa-sm"></i>1 phòng được thêm tối đa 1 người lớn (tuỳ vào loại phòng)</li>
-                                <li><i class="fas fa-trash-alt fa-sm"></i>Vui lòng nhập các yêu cầu đặc biệt vào mục Yêu cầu khác bên dưới Thông tin liên hệ để được hỗ trợ</li> -->
-                            </ul>
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Hướng</label>
+                            <div class="col-sm-12">
+                                <input id="view" type="text" name="view">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Giường</label>
+                            <div class="col-sm-12">
+                                <input id="bed" type="text" name="bed">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Số người tối đa</label>
+                            <div class="col-sm-12">
+                                <input id="quantum" type="text" name="quantum">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Giá 1 đêm</label>
+                            <div class="col-sm-12">
+                                <input id="price" type="text" name="price">
+                            </div>
                         </div>
                     </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="dichvu">
+                        <ul class="detail-amenities-list" style="margin-top:10px">
+                            <?php foreach ($conven as $key) {?>
+                            <li class="active">
+                                <span  class="dichvu">
+                                    <input name="dv" value="<?php echo $key['id_convenience']?>" type="checkbox">
+                                    <?php echo $key['icon_conven']?>
+                                </span>
+                                <span>
+                                    <?php echo $key['convenienceName']?> 
+                                </span>
+                            </li>
+                            <?php }?>
+                        </ul>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="chinhsach">
+              
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Chính sách phụ thu</label>
+                            <div class="col-sm-12">
+                                <input id="dieuKien" type="text" name="dieuKien" placeholder="Điều kiện">
+                                <input id="mucPhi" type="text" name="mucPhi" placeholder="Mức phí">
+                                <button id="addchinhsachPhuThu" class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
+
+                                <table id="tablePolicy" class="table" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th width="50%">Điều kiện</th>
+                                            <th width="50%">Mức phí (1 đêm)</th>
+                                            <th width="50%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Từ 10 đến 12 tuổi</td>
+                                            <td>100,000 VNĐ</td>
+                                            <td><i class="fas fa-trash-alt fa-sm"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Người lớn</td>
+                                            <td>100,000 VNĐ</td>
+                                            <td><i class="fas fa-trash-alt fa-sm"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Lưu ý</label>
+                            <div class="col-sm-12">
+                                <input id="luuY" type="text" multiple="multiple" name="luuY" placeholder="Lưu ý">
+                                <button id="addListLuuY"class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
+                                <div id="listLuuY">
+                                    <ul>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>Các mức phí trên đã bao gồm thuế phí</li>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>Giường phụ không áp dụng cho loại phòng FAMILY ( 4 khách) (Private Sales)</li>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>1 phòng được thêm tối đa 1 người lớn (tuỳ vào loại phòng)</li>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>Vui lòng nhập các yêu cầu đặc biệt vào mục Yêu cầu khác bên dưới Thông tin liên hệ để được hỗ trợ</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-info">
+                            <label class="col-sm-6 control-label no-padding-right">Chính sách hủy</label>
+                            <div class="col-sm-12">
+                                <input id="chinhsachHuy" type="text" multiple="multiple" name="chinhsachHuy" placeholder="Chính sách hủy">
+                                <button id="addchinhsachHuy"class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
+                                <div id="listChinhSachHuy">
+                                    <ul>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>Huỷ miễn phí trước 20 ngày so với ngày nhận phòng.</li>
+                                        <li><i class="fas fa-trash-alt fa-sm"></i>Khách không đến hoặc huỷ trong vòng 20 ngày so với ngày nhận phòng, tính phí 100% giá trị đơn phòng.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
                 </div>
 
-                <div class="form-group has-info">
-                    <label class="col-sm-6 control-label no-padding-right">Chính sách hủy</label>
-                    <div class="col-sm-12">
-                        <input id="chinhsachHuy" type="text" multiple="multiple" name="chinhsachHuy" placeholder="Chính sách hủy">
-                        <button id="addchinhsachHuy"class="btn btn-success"><i class="fas fa-plus-circle"></i></button>
-                        <div id="listChinhSachHuy">
-                            <ul>
-<!--                                 <li><i class="fas fa-trash-alt fa-sm"></i>Huỷ miễn phí trước 20 ngày so với ngày nhận phòng.</li>
-                                <li><i class="fas fa-trash-alt fa-sm"></i>Khách không đến hoặc huỷ trong vòng 20 ngày so với ngày nhận phòng, tính phí 100% giá trị đơn phòng.</li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
+
+            <div class="modal-footer">
+                <button id="addRoom" type="button" class="btn btn-default" data-dismiss="modal">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
         </div>
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button id="addRoom" type="button" class="btn btn-default" data-dismiss="modal">Thêm</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-
-  </div>
 </div>
 <script type="text/javascript">
 
