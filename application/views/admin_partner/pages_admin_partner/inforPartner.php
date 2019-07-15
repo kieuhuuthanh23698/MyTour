@@ -203,3 +203,25 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://thongtindoanhnghiep.co/api/city",
+  "method": "GET",
+  "headers": {
+    "User-Agent": "PostmanRuntime/7.15.0",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "ff1a5da1-9e3b-45fa-b3b3-a842567d5fcd,829a9cd3-b68e-4218-8fae-b7f71030f15f",
+    "Host": "thongtindoanhnghiep.co",
+    "accept-encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "cache-control": "no-cache"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+</script>

@@ -82,3 +82,11 @@ GROUP BY `id_room`
 
 
 dest nhieu room , romm : chinh sach phu thu, luu y, chinh sach huy
+
+
+
+*****
+hoàn thành trang thông tin phòng
+làm trang search, load khách sạn
+tìm hiểu API các tỉnh thành
+******

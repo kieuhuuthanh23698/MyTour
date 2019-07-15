@@ -14,12 +14,8 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/jquery-ui.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
 <!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
-<<<<<<< HEAD
         <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>public/css/jquery.dataTables.min.css">
-=======
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        
->>>>>>> b4231541b239ab08520250f8054b7390305075f8
         <script src="<?php echo base_url() ?>public/js/jquery-3.3.1.min.js"></script>
         <script src="<?php echo base_url() ?>public/js/jquery-ui.min.js"></script>
         
