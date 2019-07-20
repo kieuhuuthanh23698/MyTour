@@ -43,7 +43,7 @@
                     <span id="listfunction-btn"><i class="fas fa-bars"></i></span>
                 </div>
                 <div class="menu">
-                    <ul>
+                    <ul style="top: 70px">
                         <li><a href="<?php echo base_url()?>"><span class="home"><i class="fas fa-home"></i></span>Trang Chủ</a></li>
                         <li><a href="#"><span class="admin"><i class="fas fa-user-tie"></i></span><?php echo isset($_SESSION["admin"])?"":"" ?></a></li>
                         

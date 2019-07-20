@@ -17,6 +17,7 @@ class insertBillsPartner extends CI_Controller {
 		$view['body'] = $this->load->view('admin_partner/pages_admin_partner/insertBillsPartner', null, TRUE);
 		$this->load->view('admin_partner/home_admin_partner/masterAdminPartner', $view);
 	}
+
     public function getListRoom(){
         $id_destination = $this->session->userdata("partner")["id_destination"];
         $now = getdate();

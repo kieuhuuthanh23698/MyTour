@@ -49,12 +49,12 @@ nav{
     list-style: none;
     padding-left: 0;
     background-color: #37474f;
-   
+    margin-top: 0px;
 }
 .listfunction>ul{
     height: 100%;
     position: fixed;
-    top: 71px;
+    top: 70px;
     left: 0;
     width: 310px;
     padding-bottom: 100px;

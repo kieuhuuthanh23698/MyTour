@@ -12,8 +12,7 @@ class roomPartner extends CI_Controller {
 		//$this->load->helper('cart_helper');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$id = $this->session->userdata('partner')['id_destination'];
 		$data['conven'] = $this->M_data->load_query("select * from convenience");
 		$data['roomType'] = $this->M_data->load_query("select * FROM roomtype WHERE id_roomType NOT IN (SELECT id_room FROM roomtypedetail WHERE id_dest = ".$id.")");
@@ -22,12 +21,10 @@ class roomPartner extends CI_Controller {
         $this->load->view('admin_partner/home_admin_partner/masterAdminPartner', $view);
 	}
 
-	public function addRoom()
-	{
-		//var_dump($_FILES);
+	public function addRoom(){
 		if($this->input->post('roomType')){
 			if (!empty($_FILES['imageRoom']['name'])){
-				$config['upload_path'] = './public/images/products/';
+				$config['upload_path'] = './public/images/dedicate/';
 				$config['allowed_types'] = 'jpg|jpeg|png|gif';
 				$config['file_name'] = $_FILES['imageRoom']['name'];
 				$config['overwrite'] = TRUE;  
@@ -38,59 +35,129 @@ class roomPartner extends CI_Controller {
 				if ($this->upload->do_upload('imageRoom'))
 				{
 					$uploadData = $this->upload->data();
-					$data["imageRoom"] = $uploadData['file_name'];
+					$roomtypedetail["imageRoom"] = $uploadData['file_name'];
 				}
 				else
 				{
 					$datas['errors'] = $this->upload->display_errors();
-					$data["imageRoom"] = 'unknow1.png';
+					$roomtypedetail["imageRoom"] = 'unknow1.png';
 				}
 			}
 			else{
 				$datas['errors'] = $this->upload->display_errors();
-				$data["imageRoom"] = 'unknow2.png';
+				$roomtypedetail["imageRoom"] = 'unknow2.png';
 			}
-			$data['id_dest'] = $this->session->userdata('partner')[0]['id_destination'];
-			$data['id_room'] = $this->input->post('roomType');
-			$data['area'] = $this->input->post('area');
-			$data['view'] = $this->input->post('view');
-			$data['bed'] = $this->input->post('bed');
-			$data['quantum'] = $this->input->post('quantum');
-			$data['price'] = $this->input->post('price');
+			$roomtypedetail['id_dest'] = $this->session->userdata('partner')['id_destination'];
+			$roomtypedetail['id_room'] = $this->input->post('roomType');
+			$roomtypedetail['area'] = $this->input->post('area');
+			$roomtypedetail['view'] = $this->input->post('view');
+			$roomtypedetail['bed'] = $this->input->post('bed');
+			$roomtypedetail['quantum'] = $this->input->post('quantum');
+			$roomtypedetail['price'] = $this->input->post('price');
+			// var_dump($roomtypedetail);
+			// echo '<br/>';
+			// echo '<br/>';
+			$id = $this->M_data->insert('roomtypedetail',$roomtypedetail);
+			$room = $this->M_data->load_query("select * FROM roomtype, roomtypedetail WHERE roomtype.id_roomType = roomtypedetail.id_room AND roomtypedetail.id_dest = ".$roomtypedetail['id_dest']." AND roomtypedetail.id_room = ".$roomtypedetail['id_room']);
 
-			$id = $this->M_data->insert('roomtypedetail',$data);
-			$room = $this->M_data->load_query("select * FROM roomtype, roomtypedetail WHERE roomtype.id_roomType = roomtypedetail.id_room AND roomtypedetail.id_dest = ".$data['id_dest']." AND roomtypedetail.id_room = ".$data['id_room']);
+			$service = json_decode($this->input->post('service'));
+			// var_dump($service);
+			// echo '<br/>';
+			// echo '<br/>';
+			$conveniencedetail['id_desc'] = $this->session->userdata('partner')['id_destination'];
+			$conveniencedetail['id_room'] = $this->input->post('roomType');
+			for ($i=0; $i < count($service); $i++) { 
+				$conveniencedetail['id_conve'] = $service[$i];
+				$id = $this->M_data->insert('conveniencedetail',$conveniencedetail);
+				// var_dump($conveniencedetail);
+				// echo '<br/>';
+				// echo '<br/>';
+			}
+
+			$phuThu = json_decode($this->input->post('phuThu'));
+			$chinhsachphuthu['id_dest'] = $this->session->userdata('partner')['id_destination'];
+			$chinhsachphuthu['id_room'] = $this->input->post('roomType');
+			for ($i=0; $i < count($phuThu); $i++) { 
+				$chinhsachphuthu['dieukien'] = $phuThu[$i][0];
+				$chinhsachphuthu['mucphi'] = $phuThu[$i][1];
+				$id = $this->M_data->insert('chinhsachphuthu',$chinhsachphuthu);
+				// var_dump($chinhsachphuthu);
+				// echo '<br/>';
+				// echo '<br/>';
+			}
+
+			$luuY['id_dest'] = $this->session->userdata('partner')['id_destination'];
+			$luuY['id_room'] = $this->input->post('roomType');
+			$luuY['noi_dung'] = $this->input->post('luuY');
+			$id = $this->M_data->insert('luu_y',$luuY);
+			// var_dump($luuY);
+			// 	echo '<br/>';
+			// 	echo '<br/>';
+
+			$chinhSachHuy['id_dest'] = $this->session->userdata('partner')['id_destination'];
+			$chinhSachHuy['id_room'] = $this->input->post('roomType');
+			$chinhSachHuy['noi_dung'] = $this->input->post('chinhSachHuy');
+			$id = $this->M_data->insert('chinhsachhuy',$chinhSachHuy);
+			// var_dump($chinhSachHuy);
+			// 	echo '<br/>';
 			echo json_encode($room);
-		  	//var_dump($data);
-		  	//var_dump($id);
-		// 	//var_dump($this->input->post(''));
-		// 	//echo "hello";
-		// 	//$sp = $this->M_data->load_data('*', 'roomtypedetail', array('id_dest' => $id[0], 'id_room' => $id[1]));
-		// 	// $tr = "<tr >
-		// 	// <td>".$sp[0]['id_banner']."</td>
-		// 	// <td><img src='images/".$sp[0]["image"]."' width = '400px'></img></td>
-		// 	// <td><input onclick='check(".$sp[0]['id_banner'].")' type='checkbox' checked></td>
-		// 	// <td>".$sp[0]['update_at']."</td>
-		// 	// <td><button onclick='xoa(".$sp[0]['id_banner'].")'>XÓA</button></td>
-		// 	// </tr>";
-		// 	// echo $tr;
-	 //    //redirect(base_url('banner'));
-		// }
 		}
 		else
 		{
 			echo "Không nhận được dữ liêu !";
-			//echo $this->input->post('');
-		//echo "hello";
 		}
 	}
 
-	public function delete()
-	{
-		$id_dest = $this->session->userdata('partner')[0]['id_destination'];
+	public function delete(){
+		$id_dest = $this->session->userdata('partner')['id_destination'];
 		$id_room = $this->input->post('id');
 		$query = "delete from roomtypedetail where id_dest = ".$id_dest." and id_room = ".$id_room;
 		$this->db->query($query);
-		echo "Delete successful !";
+		$query = "delete from luu_y where id_dest = ".$id_dest." and id_room = ".$id_room;
+		$this->db->query($query);
+		$query = "delete from conveniencedetail where id_desc = ".$id_dest." and id_room = ".$id_room;
+		$this->db->query($query);
+		$query = "delete from chinhsachphuthu where id_dest = ".$id_dest." and id_room = ".$id_room;
+		$this->db->query($query);
+		$query = "delete from chinhsachhuy where id_dest = ".$id_dest." and id_room = ".$id_room;
+		$this->db->query($query);
+		echo json_encode($this->M_data->load_query("select * FROM roomtype WHERE id_roomType NOT IN (SELECT id_room FROM roomtypedetail WHERE id_dest = ".$id_dest.")"));
 	}
+
+	public function getRoom(){
+		$id_room = $this->input->post('id_room');
+		$id_dest = $this->session->userdata('partner')['id_destination'];
+
+		$query = 'select * from roomtype where id_roomType = '.$id_room;
+		$result['roomtype'] =  $this->M_data->load_query($query);
+
+		$query = 'select * from roomtypedetail where id_dest = '.$id_dest.' and id_room = '.$id_room;
+		$result['roomtypedetail'] =  $this->M_data->load_query($query);
+
+		$query = 'select * from conveniencedetail where id_desc = '.$id_dest.' and id_room = '.$id_room;
+		$result['conveniencedetail'] = $this->M_data->load_query($query);
+
+		
+		$query = 'select * from chinhsachphuthu where id_dest = '.$id_dest.' and id_room = '.$id_room;
+		$result['chinhsachphuthu'] = $this->M_data->load_query($query);
+		
+		$query = 'select * from luu_y where id_dest = '.$id_dest.' and id_room = '.$id_room;
+		$result['luu_y'] = $this->M_data->load_query($query);
+		
+		$query = 'select * from chinhsachhuy where id_dest = '.$id_dest.' and id_room = '.$id_room;
+		$result['chinhsachhuy'] = $this->M_data->load_query($query);
+
+		echo json_encode($result);
+	}
+
+	public function getRoomType(){
+		$id = $this->session->userdata('partner')['id_destination'];
+		$result = $this->M_data->load_query("select * FROM roomtype WHERE id_roomType NOT IN (SELECT id_room FROM roomtypedetail WHERE id_dest = ".$id.")");
+		echo json_encode($result);
+	}
+
+	public function update(){
+		echo json_encode(array('res' => 'Update'));
+	}
+
 }

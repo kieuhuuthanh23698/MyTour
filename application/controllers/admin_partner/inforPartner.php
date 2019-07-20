@@ -21,18 +21,7 @@ class inforPartner extends CI_Controller {
 
     public function update()
     {
-        // $destinationEmail = $this->input->post('use_email');
-        // $destinationName = $this->input->post('nameEdit');
-        // $destinationPhone = $this->input->post('phoneEdit');
-        // $destinationAddress = $this->input->post('addressEdit');
-        // $destinationCounty = $this->input->post('cityEdit');
-        // $destinationDistrice = $this->input->post('ditrictEdit');
-        // $destinationWard = $this->input->post('wardEdit');
-        // $star = $this->input->post('starRatings');
-        // $destinationUser = $this->input->post('cancelTime');
-        // $destinationPassword = $this->input->post('usename');
-        // $cancelTime = $this->input->post('password');
-        $id = $this->session->userdata('partner')[0]['id_destination'];
+        $id = $this->session->userdata('partner')['id_destination'];
         $data['destinationName'] = $this->input->post('nameEdit');
         $data['destinationEmail'] = $this->input->post('use_email');
         $data['destinationPhone'] = $this->input->post('phoneEdit');
@@ -41,11 +30,33 @@ class inforPartner extends CI_Controller {
         $data['destinationDistrice'] = $this->input->post('ditrictEdit');
         $data['destinationWard'] = $this->input->post('wardEdit');
         $data['star'] = $this->input->post('starRatings');
-        $data['destinationUser'] = $this->input->post('usename');
-        $data['destinationPassword'] = $this->input->post('password');
+        //$data['destinationUser'] = $this->input->post('usename');
+        if(($this->input->post('password') == $this->input->post('repassword')) && $this->input->post('password') != NULL)
+            $data['destinationPassword'] = $this->input->post('password');
         $data['cancelTime'] = $this->input->post('cancelTime');
+        //var_dump($data);
         $this->M_data->update($id, 'destination',$data);
         redirect(base_url('admin_partner/inforPartner'));
-        // var_dump($data);
+    }
+
+    public function getAPI(){
+        $URL = $this->input->get('url');
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $URL,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache"
+          ),
+        ));
+        $response = curl_exec($curl);
+        echo $response;
+        //var_dump($response);
+        //$err = curl_error($curl);
+        //var_dump($err);
+        curl_close($curl);
     }
 }

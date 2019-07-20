@@ -184,7 +184,10 @@
             minDate: new Date(),
             onSelect: function(date) {
                 $( "#timeCheckOut" ).datepicker( "option", "minDate", date );
+<<<<<<< HEAD
                 getRoomInf();
+=======
+>>>>>>> 4792a5c86309fbc32af1790b2fe1003efcc3c5ad
             }
         });
         $('#timeCheckOut').datepicker({

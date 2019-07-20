@@ -1,17 +1,29 @@
-<div class="searchDest">
+<!-- <script type="text/javascript">
+    window.onload = function(){
+
+    }
+    $(document).ready(function(){
+        $('#city').val(localStorage.getItem("city"));
+        $('#timeCheckIn').val(localStorage.getItem("timeCheckIn"));
+        $('#timeCheckOut').val(localStorage.getItem("timeCheckOut"));
+        $('#numRoom').val(localStorage.getItem("numRoom"));
+    });
+</script>
+ -->
+<!-- <div class="searchDest">
         <div class="container text-center">
             <div>
                 <i class="fas fa-bed"></i>
-                <input type="text" placeholder="Đà Nẵng">
+                <input type="text" id="city">
             </div>
             <div>
                 <i class="far fa-calendar"></i>
-                <input type="text" />
+                <input type="text" id="timeCheckIn" />
                 <i class="far fa-calendar"></i>
-                <input type="text" />
+                <input type="text" id="timeCheckOut" />
             </div>
             <div>
-                <input type="number" value="1"/>
+                <input type="number" id="numRoom" min="1" max="10" />
                 <span>Phòng</span>
             </div>
             <div>
@@ -19,44 +31,27 @@
             </div>
             
         </div>
-    </div>
-<style>
-    .searchDest{
-        background-color: #2d3d4e;
-        height: 100px;
-        
-    }
-    .searchDest>div{
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .searchDest>div>div{
-        background-color: #fff;
-        padding: 5px 20px;
-        margin-right: 10px;
-        border-radius: 2px;
-    }
-    .searchDest>div>div i{
-        font-size: 22px;
-        
-    }
-    .searchDest>div>div input{
-        padding: 6px;
-        border: 0;
-    }
-    .searchDest>div>div:last-child{
-        border: 1px solid green;
-        padding: 10px 25px;
-        background-color: #19d3af;
-    }
-    .searchDest>div>div:last-child a{
-        color: #ffffff;
-        font-weight: 500;
-        text-decoration: none;
-    }
-</style>
+    </div> -->
+<!-- <script>
+    $(function(){
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        $('#timeCheckIn').val(now.getDate() + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
+        $('#timeCheckOut').val((now.getDate()) + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
+        $('#timeCheckIn').datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: new Date(),
+            onSelect: function(date) {
+                $( "#timeCheckOut" ).datepicker("option", "minDate", date );
+            }
+        });
+        $('#timeCheckOut').datepicker({
+            dateFormat: "dd/mm/yy",
+            minDate: new Date(),
+        });
+    })
+</script> -->
+
 <!--************************************************* MAIN ********************************************-->
 <div class="dest-main padding">
     <div class="container">
@@ -64,6 +59,16 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-12">
+                        <div class="filter">
+                            <h1 class="h2 text-center">Loại Hình</h1>
+                            <ul>
+                                <li>
+                                    <input type="checkbox">Khách sạn
+                                
+                                </li>
+                                <li><input type="checkbox">tour</li>
+                            </ul>
+                        </div>
                         <div class="filter">
                             <h1 class="h2 text-center">Loại Hình</h1>
                             <ul>
