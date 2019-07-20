@@ -187,7 +187,6 @@
             minDate: new Date(),
             onSelect: function(date) {
                 $( "#timeCheckOut" ).datepicker( "option", "minDate", date );
-//                $( "#timeCheckOut" ).datepicker( "option", "maxDate","+1m" );
             }
         });
         $('#timeCheckOut').datepicker({

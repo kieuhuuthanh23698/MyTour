@@ -25,5 +25,20 @@ class M_data extends CI_Model {
         $this->db->where('id_destination', $id);
         $this->db->delete($table); 
     }
+
+    public function getAPI($URL){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $URL,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array("cache-control: no-cache"),
+        ));
+        $response = curl_exec($curl);//RESPONE LÀ 1 string dạng JSON
+        curl_close($curl);
+        return json_decode($response, true);
+    }
 }
 ?>
