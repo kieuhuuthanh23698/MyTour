@@ -30,17 +30,17 @@
         <table class="table table-bordered text-center">
             <tr>
                 <td>Tên Khách Hàng</td>
-                <td><input type="text" class="form-control"/></td>
+                <td><input id="name" type="text" class="form-control"/></td>
                 <td>Số Điện Thoại</td>
                 <td>
-                    <input type="text" class="form-control"/>
+                    <input id="phone" type="text" class="form-control"/>
                 </td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="text" class="form-control"/></td>
+                <td><input id="mail" type="text" class="form-control"/></td>
                 <td>Địa Chỉ</td>
-                <td><input type="text" class="form-control"/></td>
+                <td><input id="address" type="text" class="form-control"/></td>
             </tr>
         </table>
     </div>
@@ -54,7 +54,7 @@
 </style>
 <div class="products-heading">
     <h1>Danh Sách Phòng Đặt</h1>
-    <button class="btn btn-success" data-toggle="modal" data-target="#addRoom" >Thêm Phòng</button>
+    <button onclick="loadAddRoom()" class="btn btn-success" data-toggle="modal" data-target="#addRoom" >Thêm Phòng</button>
 </div>
 <style>
     .products-heading{
@@ -72,31 +72,28 @@
         font-size: 30px;
     }
 </style>
-<div class="product-list">
+<div class="room-list">
     <table class="table table-bordered text-center" id="">
         <thead style="background-color: #37474f; color: #ffffff;">
+            <th>ID</th>
             <th>Loại Phòng</th>
             <th>Giá</th>
             <th>Số Lượng Phòng</th>
+            <th>Từ Ngày</th>
+            <th>Đến Ngày</th>
             <th>Thành Tiền</th>
             <th></th>
         </thead>
         <tbody style="font-weight: 500">
-            <tr>
-                <td>Standard Double</td>
-                <td>2.000.000 đ</td>
-                <td>2</td>
-                <td>4.000.000 đ</td>
-                <td>
-                    <button class="btn btn-warning">Xóa</button>
-                </td>
-            </tr>
+            
         </tbody>
+        
     </table>
-
+    <p><strong>Thành Tiền: </strong><span id="total-money">0</span> đ</p>
+    
 </div>
 <div class="order mt-5">
-    <button>Đặt Phòng</button>
+    <button id="orderRoom">Đặt Phòng</button>
 </div>
 <style>
     .order{
@@ -143,7 +140,7 @@
                 </div>
                 <div class="quantumRoom mt-4">
                     <p><strong>Số Lượng phòng: </strong></p>
-                    <input class="form-control" type="number" min="1"/>
+                    <input id="quantum" class="form-control" type="number" min="1"/>
                     <p class="mt-5 money"><strong>Thành Tiền: </strong><span></span> đ</p>
                 </div>
           
@@ -151,7 +148,7 @@
         
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm Phòng</button>
+                <button id="add" type="button" class="btn btn-primary">Thêm Phòng</button>
             </div>
         </div>
     </div>
@@ -187,39 +184,187 @@
             minDate: new Date(),
             onSelect: function(date) {
                 $( "#timeCheckOut" ).datepicker( "option", "minDate", date );
-//                $( "#timeCheckOut" ).datepicker( "option", "maxDate","+1m" );
+                getRoomInf();
             }
         });
         $('#timeCheckOut').datepicker({
             dateFormat: "dd/mm/yy",
             minDate: new Date(),
+            onSelect: function(date) {
+                getRoomInf();
+            }
         });
+        
+        $("#listRoomSelect").change(function(){
+            getRoomInf();
+        });
+        
+        $(".quantumRoom #quantum").change(function(){
+            changeQuantum();
+        })
+        $("#add").on("click",function(){
+            var id_roomType = $("#listRoomSelect").find(':selected').val();
+            var roomName = $("#listRoomSelect").find(':selected').text();
+            var price = $(".room-inf .price span").text();
+            var quantum = $(".quantumRoom input").val();
+            var money = $(".quantumRoom .money span").text();
+            var dateFrom = $( "#timeCheckIn" ).val();
+            var dateTo = $( "#timeCheckOut" ).val()
+            
+            $item = $('<tr id="id'+id_roomType+'"><td class="id">'+id_roomType+'</td><td>'+roomName+'</td><td>'+price+'đ</td><td class="roomQuantum">'+quantum+'</td><td class="dateFrom">'+dateFrom+'</td><td class="dateTo">'+dateTo+'</td><td class="money"><span>'+money+'</span> đ</td><td>'+
+                    '<button onclick="deleteRoom('+id_roomType+')" class="btn btn-warning">Xóa</button></td></tr>    ');
+            $(".room-list tbody").append($item);
+            
+            var totalMoney = Number($("#total-money").text().replaceAll(',', ''));
+            price = Number(price.replaceAll(',', ''));
+            var updateTotalMoney = totalMoney + price;
+            $("#total-money").text(formatCurrency(updateTotalMoney.toString()));
+            
+            loadAddRoom();
+            alert("Phòng đã được thêm vào danh sách");
+        });
+            
+        $("#orderRoom").on("click",function(){
+            
+            var name = $("#name").val();
+            var phone = $("#phone").val();
+            var mail = $("#mail").val();
+            var address = $("#address").val();
+            var totalMoney = $("#total-money").text().replaceAll(',', '');
+            
+            var listRoom = [];
+            for(var i=0; i<$(".room-list tbody tr").length; i++){
+                var roomItem = {};
+                roomItem.idRoom = $(".room-list .id")[i].innerHTML;
+                roomItem.roomQuantum = $(".room-list .roomQuantum")[i].innerHTML;
+                var dateF = $(".room-list .dateFrom")[i].innerHTML.split("/");
+                roomItem.dateFrom = dateF[2]+"/"+dateF[1]+"/"+dateF[0];
+                
+                var dateT = $(".room-list .dateTo")[i].innerHTML.split("/");
+                roomItem.dateTo = dateT[2]+"/"+dateT[1]+"/"+dateT[0];
+                
+                roomItem.money = $(".room-list .money span")[i].innerHTML.replaceAll(',', '');
+                
+                listRoom.push(roomItem);
+            }
+            $.ajax({
+                url: '<?php echo base_url()?>admin_partner/insertBillsPartner/insertBill',
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    listRoom: JSON.stringify(listRoom),
+                    name: name,
+                    phone: phone,
+                    mail: mail,
+                    address: address,
+                    totalMoney: totalMoney
+                }
+            })
+            .done(function(data){
+                alert(data);
+                window.location.href='<?php echo base_url()?>admin_partner/billsAdminPartner';
+            })   
+        })
+        
     })
-</script>
-<script>
-    $(document).ready(function(){
+    function loadAddRoom(){
+        $("#listRoomSelect").children().remove();
+        // load dữ liệu lên model add room
         $.get( "<?php echo base_url()?>admin_partner/insertBillsPartner/getListRoom", function( data ) {
             var obj = jQuery.parseJSON(data);
-            for(var room of obj) {
-                $option = $('<option value="'+room.id_roomType+'">'+room.roomTypeName+'</option>');
-                $("#listRoomSelect").append($option);
-            }
-            $(".room-inf .area span").text(obj[0].area);
-            $(".room-inf .view span").text(obj[0].view);
-            $(".room-inf .bed span").text(obj[0].bed);
-            $(".room-inf .price span").text(formatCurrency(obj[0].price.toString()));
             
-            var roomCanOrder = obj[0].quantum;
-            if(obj[0].total != null){
-                roomCanOrder = obj[0].quantum - obj[0].total;
+            // mảng chứa id các id room đã thêm
+            var roomAdded = [];
+            for(var i=0; i<$(".room-list .id").length; i++){
+                roomAdded.push($(".room-list .id")[i].innerHTML);
             }
-            $(".room-time .roomCanOrder span").text(roomCanOrder);
-            $(".quantumRoom input").attr("max",roomCanOrder);
+            for(var room of obj) {
+                if(roomAdded.indexOf(room.id_roomType)== -1){ // kiểm tra id phòng đã thêm vào hay chưa
+                    $option = $('<option value="'+room.id_roomType+'">'+room.roomTypeName+'</option>');
+                    $("#listRoomSelect").append($option);
+                }
+            }
+            getRoomInf();
+            
         });
-    })
+    }
+    function getRoomInf(){
+        var id_roomType = $("#listRoomSelect").find(':selected').val();
+        var timeIn = $( "#timeCheckIn" ).val().split("/");
+        var timeCheckIn = timeIn[2]+"/"+timeIn[1]+"/"+timeIn[0];
+        var timeOut = $( "#timeCheckOut").val().split("/");
+        var timeCheckOut = timeOut[2]+"/"+timeOut[1]+"/"+timeOut[0];
+        $.ajax({
+            url: '<?php echo base_url()?>admin_partner/insertBillsPartner/getRoomInf',
+            dataType: 'json',
+            data: {
+                "id_roomType":id_roomType,
+                "timeCheckIn": timeCheckIn,
+                "timeCheckOut": timeCheckOut
+            },
+            type: 'POST',
+            success: function (data) {
+                $(".room-inf .area span").text(data[0].area);
+                $(".room-inf .view span").text(data[0].view);
+                $(".room-inf .bed span").text(data[0].bed);
+                $(".room-inf .price span").text(formatCurrency(data[0].price.toString()));
+
+                var roomCanOrder = data[0].quantum;
+                if(data[0].total != null){
+                    roomCanOrder = data[0].quantum - data[0].total;
+                }
+                $(".room-time .roomCanOrder span").text(roomCanOrder);
+                $(".quantumRoom input").val(1);
+                $(".quantumRoom input").attr("max",roomCanOrder);
+                changeQuantum();
+            }
+        });
+        
+         
+    }
+    function changeQuantum(){
+        var maxQuantum = parseInt($(".room-time .roomCanOrder span").text());
+        if($(".quantumRoom #quantum").val() > maxQuantum){
+            alert("Đã vượt quá số lượng phòng có thể đặt!");
+            $(".quantumRoom #quantum").val(maxQuantum);
+        }
+        if($(".quantumRoom #quantum").val() < 1){
+            $(".quantumRoom #quantum").val(1);
+        }
+        var price = $(".room-inf .price span").text().replaceAll(',', '');
+        var quantum = $(".quantumRoom #quantum").val();
+        
+        var timeIn = $( "#timeCheckIn" ).val().split("/");
+        var dateFrom = new Date(timeIn[2],timeIn[1],timeIn[0]);
+        var timeOut = $( "#timeCheckOut" ).val().split("/");
+        var dateTo = new Date(timeOut[2],timeOut[1],timeOut[0]);
+        var offset = dateTo.getTime() - dateFrom.getTime();
+        
+        var totalDays = Math.round(offset / 1000 / 60 / 60 / 24)+1; 
+        
+        var money = price*quantum*totalDays;
+        $(".quantumRoom .money span").text(formatCurrency(money.toString()));
+        
+    }
+    function deleteRoom($id){
+        var answer = window.confirm("Bạn Có Muốn Xóa Phòng Này");
+        if(answer){
+            $("#id"+$id).remove();
+        }
+    }
     function formatCurrency(number){
         var n = number.split('').reverse().join("");
         var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");    
         return  n2.split('').reverse().join('');
     }
+    String.prototype.replaceAll = function(strTarget,strSubString){
+        var strText = this;
+        var intIndexOfMatch = strText.indexOf( strTarget );
+        while (intIndexOfMatch != -1){
+            strText = strText.replace( strTarget, strSubString );
+            intIndexOfMatch = strText.indexOf( strTarget );
+        }
+        return( strText );
+    }
 </script>
+
