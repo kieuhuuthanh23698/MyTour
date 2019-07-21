@@ -29,11 +29,10 @@ class loginpartner extends CI_Controller {
 		$result = $this->M_data->load_query($query);
 		if(count($result) > 0)
 		{
- 			$this->session->set_userdata('partner', $result);
- 			$this->session->set_userdata('', $result);
             $arr_user["id_destination"] = $result[0]["id_destination"];
             $arr_user['username'] = $result[0]['destinationUser'];
             $arr_user['password'] = $result[0]['destinationPassword'];
+            $arr_user['status'] = $result[0]['status'];
 	
 			$this->session->set_userdata("partner",$arr_user);
  			redirect(base_url('admin_partner/homeAdmin'));

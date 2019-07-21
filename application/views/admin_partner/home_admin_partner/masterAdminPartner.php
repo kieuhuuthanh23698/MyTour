@@ -13,20 +13,14 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/animate.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/jquery-ui.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/styleAdminPartner.css"/>
-<!--         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>public/css/app-pc-f7cb11f485.min.css"/> -->
+        
         <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>public/css/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        
         <script src="<?php echo base_url() ?>public/js/jquery-3.3.1.min.js"></script>
         <script src="<?php echo base_url() ?>public/js/jquery-ui.min.js"></script>
         
         <script src="<?php echo base_url() ?>public/js/bootstrap.min.js"></script>
-
-<!--
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
--->
-
         <script type="text/javascript" charset="utf8" src="<?php echo base_url()?>public/js/jquery.dataTables.min.js"></script>
 
     </head>
@@ -69,14 +63,19 @@
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
                         <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
-                        <li><a href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
+                        <li><a class="" href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/roomPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                     </ul>
                 </div>
             </div>
-      
         
-        
+        <style>
+            .a{
+                pointer-events: none;
+                cursor: default;
+                opacity: 0.6;
+            }
+        </style>
         
     </body>
     <script>
