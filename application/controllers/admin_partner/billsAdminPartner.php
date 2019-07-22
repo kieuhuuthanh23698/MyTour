@@ -14,7 +14,7 @@ class billsAdminPartner extends CI_Controller {
 
 	public function index()
 	{
-        $this->session->unset_userdata("partner");
+//        $this->session->unset_userdata("partner");
 		$view['body'] = $this->load->view('admin_partner/pages_admin_partner/billsAdminPartner', null, TRUE);
 		$this->load->view('admin_partner/home_admin_partner/masterAdminPartner', $view);
 	}
