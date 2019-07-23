@@ -69,6 +69,7 @@
                             <label class="col-sm-4 control-label">Tỉnh/Thành phố:</label>
                             <div class="col-sm-5 select-df">
                                 <select class="form-control select2-hidden-accessible"  id="cityEdit" name="cityEdit" tabindex="-1" aria-hidden="true">
+                                    <option value="-1">Chọn thành phố</option>
                                 </select>
                             </div>
                         </div>
@@ -77,6 +78,7 @@
                             <label class="col-sm-4 control-label">Quận/Huyện:</label>
                             <div class="col-sm-5 select-df">
                                 <select class="form-control select2-hidden-accessible" id="ditrictEdit" name="ditrictEdit" tabindex="-1" aria-hidden="true">
+                                    <option value="-1">Chọn thành phố</option>
                                 </select>
                             </div>
                         </div>
@@ -85,6 +87,7 @@
                             <label class="col-sm-4 control-label">Xã/Phường:</label>
                             <div class="col-sm-5 select-df">
                                 <select class="form-control select2-hidden-accessible" id="wardEdit" name="wardEdit" tabindex="-1" aria-hidden="true">
+                                          <option value="-1">Chọn thành phố</option>
                                 </select>
                             </div>
                         </div>
@@ -252,59 +255,70 @@ window.onload = function(){
         data: {url : URL},
         type: 'GET',
         success : function(e){
+                    //debugger;
                     for (var i = 0; i < e.LtsItem.length; i++) {
                         $('#cityEdit').append('<option value=' + e.LtsItem[i].ID + '>' + e.LtsItem[i].Title + '</option>');
                     }
                     //lấy id city của partner, cho option có val = id selected
-                    var city = <?php echo $partner['destinationCounty'];?>;
-                    $('#cityEdit option').each(function(){
-                        if($(this).val() == city)
-                            $(this).prop('selected','selected');
-                    });
+                    var city = <?php echo $partner['destinationCounty'];?>; 
+                    
+                    
+                    if(Number(city) > 0)
+                    {
+                        city = <?php echo $partner['destinationCounty'];?>;
 
-                    //LẤY TẤT CẢ DISTRICT CỦA CITY CỦA PARTNER ADD VÀO SELECT
-                    URL = 'https://thongtindoanhnghiep.co/api/city/' + city + '/district';
-                    $.ajax({
-                            dataType: 'json',
-                            url: '<?php echo base_url()?>admin_partner/inforPartner/getAPI',
-                            data: {url : URL},
-                            type: 'GET',
-                            success : function(e){
-                                        for (var i = 0; i < e.length; i++) {
-                                            $('#ditrictEdit').append('<option value=' + e[i].ID + '>' + e[i].Title + '</option>');
-                                        }
-                                        var dt = <?php echo $partner['destinationDistrice'];?>;
-                                        $('#ditrictEdit option').each(function(){
-                                            if($(this).val() == dt)
-                                                $(this).prop('selected','selected');
-                                        });
+                        $('#cityEdit option').each(function(){
+                            if($(this).val() == city)
+                                $(this).prop('selected','selected');
+                        });
 
-                                        //LẤY TẤT CẢ CÁC WARD CỦA DISTRICT ADD VÀO SELECT
-                                        URL = 'https://thongtindoanhnghiep.co/api/district/' + dt + '/ward';
-                                        $.ajax({
-                                            dataType: 'json',
-                                            url: '<?php echo base_url()?>admin_partner/inforPartner/getAPI',
-                                            data: {url : URL},
-                                            type: 'GET',
-                                            success : function(e){
-                                                        for (var i = 0; i < e.length; i++) {
-                                                            $('#wardEdit').append('<option value=' + e[i].ID + '>' + e[i].Title + '</option>');
-                                                        }
-                                                        var ward = <?php echo $partner['destinationWard'];?>;
-                                                        $('#wardEdit option').each(function(){
-                                                            if($(this).val() == ward)
-                                                                $(this).prop('selected','selected');
-                                                        });
+                        //LẤY TẤT CẢ DISTRICT CỦA CITY CỦA PARTNER ADD VÀO SELECT
+                        URL = 'https://thongtindoanhnghiep.co/api/city/' + city + '/district';
+                        $.ajax({
+                                dataType: 'json',
+                                url: '<?php echo base_url()?>admin_partner/inforPartner/getAPI',
+                                data: {url : URL},
+                                type: 'GET',
+                                success : function(e){
+                                            for (var i = 0; i < e.length; i++) {
+                                                $('#ditrictEdit').append('<option value=' + e[i].ID + '>' + e[i].Title + '</option>');
                                             }
-                                        });
-                            },
-                    });           
+                                            var dt = <?php echo $partner['destinationDistrice'];?>;
+                                            $('#ditrictEdit option').each(function(){
+                                                if($(this).val() == dt)
+                                                    $(this).prop('selected','selected');
+                                            });
+
+                                            //LẤY TẤT CẢ CÁC WARD CỦA DISTRICT ADD VÀO SELECT
+                                            URL = 'https://thongtindoanhnghiep.co/api/district/' + dt + '/ward';
+                                            $.ajax({
+                                                dataType: 'json',
+                                                url: '<?php echo base_url()?>admin_partner/inforPartner/getAPI',
+                                                data: {url : URL},
+                                                type: 'GET',
+                                                success : function(e){
+                                                            for (var i = 0; i < e.length; i++) {
+                                                                $('#wardEdit').append('<option value=' + e[i].ID + '>' + e[i].Title + '</option>');
+                                                            }
+                                                            var ward = <?php echo $partner['destinationWard'];?>;
+                                                            $('#wardEdit option').each(function(){
+                                                                if($(this).val() == ward)
+                                                                    $(this).prop('selected','selected');
+                                                            });
+                                                }
+                                            });
+                                },
+                        });           
+
+                    }
         }
     });
 }
 
 //hàm load district theo id city
 function district(idCity){
+    if(idCity == -1)
+        return;
     //khi select city change, reset lại select district, load lại những district của city đã chọn
     $('#ditrictEdit').text('');
     var URL = 'https://thongtindoanhnghiep.co/api/city/' + idCity + '/district';

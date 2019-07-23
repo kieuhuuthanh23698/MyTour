@@ -128,7 +128,7 @@ window.onload = function(){
     var URL = 'https://thongtindoanhnghiep.co/api/city';
     $.ajax({
         dataType: 'json',
-        url: 'http://localhost:8080/MyTour/admin_partner/inforPartner/getAPI',
+        url: '<?php echo(base_url());?>admin_partner/inforPartner/getAPI',
         data: {url :URL},
         type: 'GET',
         success : success,
