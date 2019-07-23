@@ -2,16 +2,14 @@
 <head> 
 	<meta charset="utf-8"> 
 <!--	<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-	<title>Hệ thống quản lý khách sạn trực tuyến</title>
+	<title>Hệ thống quản lý</title>
 <!--	<meta name="robots" content="noindex, nofollow"> -->
 </head> 
 <body>
     <div class="login-box">
         <div class="login-box-body">
             <h1>ĐĂNG NHẬP</h1> 
-            <p >Chưa có tài khoản? 
-                <a href="<?php echo base_url()?>admin_partner/signinPartner" class="text-blue" style="font-weight: 700">Đăng ký</a> ngay</p>
-            <form method="POST" action="<?php echo base_url();?>admin_partner/loginpartner/login"> 
+            <form method="POST" action="<?php echo base_url();?>admin/loginAdmin/login"> 
                 <div class="form-control"> 
                     <label>TÀI KHOẢN</label>
                     <input type="text" name="use_login" value="" autofocus="">
@@ -35,7 +33,7 @@
     </div>
     <style>
         .login-box{
-            background-image: url("<?php echo base_url()?>public/images/banner/polynesia-3021072_1280.jpg");
+            background-image: url("<?php echo base_url()?>public/images/banner/peschiera-del-garda-4344483_1280.jpg");
             background-size: cover;
             position: fixed;
             width: 100%;
@@ -48,9 +46,10 @@
         }
         .login-box-body{
             display: block;
-            width: 420px;
+            width: 400px;
             background-color: #f9fbfd;
             padding: 30px 20px;
+            box-shadow: 3px 3px 10px #ccc;
         }
         .form-control{
             margin-bottom: 10px;

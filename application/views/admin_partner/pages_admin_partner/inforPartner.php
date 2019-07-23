@@ -319,7 +319,6 @@ function district(idCity){
                     }
                     $('#ditrictEdit option:first-child').prop('selected',"selected");
                     ward($('#ditrictEdit option:first-child').val());
-                //}
         },
     });
 }

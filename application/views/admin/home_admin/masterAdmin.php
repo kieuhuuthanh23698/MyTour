@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['partner'])) {?>
+<!--<?php if(isset($_SESSION['admin'])) {?>-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,9 +62,7 @@
                             </ul>
                         </li>
                         <li id="gray">Chức Năng Quản Trị</li>
-                        <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
-                        <li><a class="" href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
-                        <li><a href="<?php echo base_url()?>admin_partner/roomPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
+                        <li><a href="<?php echo base_url()?>admin/reviewList"><span><i class="fas fa-cart-plus"></i></span>Khách Sạn Cần Xét Duyệt</a></li>
                     </ul>
                 </div>
             </div>
@@ -84,7 +82,8 @@
         })
     </script>
 </html>
+<!--
 <?php } 
     else
-        redirect(base_url('admin_partner/loginpartner'));
-?>
+        redirect(base_url('admin/loginAdmin'));
+?>-->
