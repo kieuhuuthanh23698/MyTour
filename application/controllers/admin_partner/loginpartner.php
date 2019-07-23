@@ -29,7 +29,6 @@ class loginpartner extends CI_Controller {
 		$result = $this->M_data->load_query($query);
 		if(count($result) > 0)
 		{
- 			$this->session->set_userdata('', $result);
             $arr_user["id_destination"] = $result[0]["id_destination"];
             $arr_user['username'] = $result[0]['destinationUser'];
             $arr_user['password'] = $result[0]['destinationPassword'];
