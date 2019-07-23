@@ -79,19 +79,40 @@ class Handling extends CI_Controller {
 	public function search()
 	{
 		$view['header'] = $this->load->view('home/header', NULL, TRUE);
-		$view['search'] = $this->load->view('home/search', NULL, TRUE);
-		$view['body'] = $this->load->view('page/bodySearch', NULL, TRUE);
-		$footerContent['footerContent'] = $this->load->view('page/footer content/footerSearch', NULL, TRUE);
-		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+
+		$city = $this->input->post('search_box');
+		$dateFrom =  $this->input->post('timeCheckIn');
+		$dateTo =  $this->input->post('timeCheckOut');
+		$numRoom =  $this->input->post('numRoom');
+
+        //$page = (int)$this->input->post("page");
+		$quantumProduct = 9;
+        $page = 1;
+        $limit1 = ($page-1)* $quantumProduct;
+        $limit2 = $quantumProduct;
+
+		$query = "select *, MIN(`roomtypedetail`.`price`) AS MinPrice FROM (select id_dest, SUM(EmptyRoom) AS All_EmptyRoom FROM (select `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (`quantum` -  COUNT(`roomquantum`)) AS EmptyRoom FROM `roomtypedetail` LEFT JOIN (select * FROM `billdetail`, `bills` WHERE ((`dateFrom` BETWEEN '".$dateFrom."' AND '".$dateTo."') OR (`dateTo` BETWEEN '".$dateFrom."' AND '".$dateTo."')) AND `bills`.`id_bills` = `billdetail`.`id_bill`) AS FiltedBills ON `roomtypedetail`.`id_room` = FiltedBills.id_room	GROUP BY `id_room`) AS EmptyRoom GROUP BY `id_dest`) AS b , `destination`, `roomtypedetail` WHERE `b`.`id_dest`	= `destination`.`id_destination` AND `destination`.`id_destination` = `roomtypedetail`.`id_dest` AND`b`.`All_EmptyRoom` > ".$numRoom." AND `destination`.`city` LIKE  '%".$city."%' AND `destination`.`city` = 0		";
+		$allResult = $this->M_data->load_query($query);
+		$result_search['count'] = count($allResult);
+
+		$view['search'] = $this->load->view('home/search', NULL, TRUE);//search bar
+		$result_search['destination'] = $this->M_data->load_query($query." limit ".$limit1.",".$limit2);
+		$view['body'] = $this->load->view('page/bodySearch', $result_search, TRUE);
+		//$view['body'] = $this->load->view('page/bodySearch2', NULL, TRUE);
+
+		//$footerContent['footerContent'] = $this->load->view('page/footer content/footerSearch', NULL, TRUE);
+		//$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
 	}
 
 	public function search2()
 	{
 		$view['header'] = $this->load->view('home/header', NULL, TRUE);
+
 		$view['body'] = $this->load->view('page/bodySearch2', NULL, TRUE);
-		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
-		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+
+		//$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
+		//$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
 	}
 
@@ -107,5 +128,10 @@ class Handling extends CI_Controller {
 		//$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
 		$view['footer'] = $this->load->view('home/footer', NULL, TRUE);
 		$this->load->view('home/masterHome', $view);	
+	}
+
+	public function filter()
+	{
+		
 	}
 }

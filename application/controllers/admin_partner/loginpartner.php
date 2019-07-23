@@ -34,7 +34,7 @@ class loginpartner extends CI_Controller {
             $arr_user["id_destination"] = $result[0]["id_destination"];
             $arr_user['username'] = $result[0]['destinationUser'];
             $arr_user['password'] = $result[0]['destinationPassword'];
-	
+			
 			$this->session->set_userdata("partner",$arr_user);
  			redirect(base_url('admin_partner/homeAdmin'));
  		}

@@ -89,3 +89,26 @@ dest nhieu room , romm : chinh sach phu thu, luu y, chinh sach huy
 làm trang search, load khách sạn
 tìm hiểu API các tỉnh thành
 ******
+
+SELECT id_dest
+FROM 
+(
+SELECT id_dest, SUM(EmptyRoom) AS All_EmptyRoom
+FROM
+(
+	SELECT `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (`quantum` -  COUNT(`roomquantum`)) AS EmptyRoom
+	FROM `roomtypedetail`
+	LEFT JOIN (
+			   SELECT * 
+			   FROM `billdetail`, `bills`
+			   WHERE ((`dateFrom` BETWEEN '2019-07-14' AND '2019-07-15') OR (`dateTo` BETWEEN '2019-07-14' AND '2019-07-15')) 
+				 AND `bills`.`id_bills` = `billdetail`.`id_bill`
+		  ) AS FiltedBills
+	ON `roomtypedetail`.`id_room` = FiltedBills.id_room
+	GROUP BY `id_room`
+) AS EmptyRoom
+GROUP BY `id_dest`
+) AS b , `destination`
+WHERE `b`.`id_dest` = `destination`.`id_destination`
+      AND`b`.`All_EmptyRoom` > 10
+      AND `destination`.`city` LIKE '%M%' 
