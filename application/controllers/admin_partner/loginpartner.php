@@ -22,6 +22,7 @@ class loginpartner extends CI_Controller {
 
 	public function login()
 	{
+		// $this->session->unset_userdata('partner');
 		$username = $this->input->post('use_login');
  		$password = $this->input->post('password');
  		//$password = md5($password);
@@ -33,7 +34,7 @@ class loginpartner extends CI_Controller {
             $arr_user['username'] = $result[0]['destinationUser'];
             $arr_user['password'] = $result[0]['destinationPassword'];
             $arr_user['status'] = $result[0]['status'];
-	
+
 			$this->session->set_userdata("partner",$arr_user);
  			redirect(base_url('admin_partner/homeAdmin'));
  		}
