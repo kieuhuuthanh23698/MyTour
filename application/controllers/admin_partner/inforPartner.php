@@ -26,11 +26,18 @@ class inforPartner extends CI_Controller {
         $data['destinationEmail'] = $this->input->post('use_email');
         $data['destinationPhone'] = $this->input->post('phoneEdit');
         $data['destinationAddress'] = $this->input->post('addressEdit');
-        $data['destinationCounty'] = $this->input->post('cityEdit');
+
+        $idCity = $this->input->post('cityEdit');
+        //echo "idCity :".$idCity;
+        $data['city'] = $this->M_data->getAPI("https://thongtindoanhnghiep.co/api/city/".$idCity)['Title'];
+        $data['destinationCounty'] = $idCity;
+
+        $idDistrict = $this->input->post('ditrictEdit');
+        //echo "idDistrict :".$idDistrict;
+        $data['district'] = $this->M_data->getAPI("https://thongtindoanhnghiep.co/api/district/".$idDistrict)['Title'];
         $data['destinationDistrice'] = $this->input->post('ditrictEdit');
         $data['destinationWard'] = $this->input->post('wardEdit');
         $data['star'] = $this->input->post('starRatings');
-        //$data['destinationUser'] = $this->input->post('usename');
         if(($this->input->post('password') == $this->input->post('repassword')) && $this->input->post('password') != NULL)
             $data['destinationPassword'] = $this->input->post('password');
         $data['cancelTime'] = $this->input->post('cancelTime');

@@ -3,11 +3,11 @@
         <div class="container text-center">
             <div id="prefetch">
                 <i class="fas fa-bed"></i>
-                <input name="search_box" id="autocomplete" class="typeahead" style="width: 250px;" type="search" placeholder="Nhập tên thành phố">
+                <input name="search_box" id="autocomplete" autocomplete="false" class="typeahead" style="width: 250px;" type="search" placeholder="Nhập tên thành phố">
             </div>
             <div class="room-time">
                 <i class="far fa-calendar"></i>
-                <input type="text" id="timeCheckIn" name="timeCheckIn" />
+                <input type="text" id="timeCheckIn" name="timeCheckIn" placeholder="Ngày đặt phòng" />
                 <i class="far fa-calendar"></i>
                 <input type="text" id="timeCheckOut" name="timeCheckOut" />
             </div>
@@ -68,40 +68,22 @@
 </style>
 <script type="text/javascript">
 
-
 //ĐƯA DỮ LIỆU VÀO LOCAL STORAGE
 $('#search').on('click',function(){
     if($('#autocomplete').val() == '')
         alert("Bạn chưa nhập tên thành phố !");
     else
     {
-        //NẾU RESET PAGE THÌ LÀM RỖNG SESSION
-        // if(document.referrer == '' || document.referrer == '<?php echo base_url()?>handling/search')
-        // {
-        //     //alert('HELLO');
-        //     localStorage.setItem("city", '');
-        //     localStorage.setItem("timeCheckIn", '');
-        //     localStorage.setItem("timeCheckOut",);
-        //     localStorage.setItem("numRoom",);
-        //     //chỉ search với những thông tin trên, reset lại 
-        //     //window.location.href = '<?php echo base_url()?>handling/search';
-        // }
-
-        // else
-        // {
-            localStorage.setItem("city", $('#autocomplete').val());
-            localStorage.setItem("timeCheckIn", $('#timeCheckIn').val());
-            localStorage.setItem("timeCheckOut", $('#timeCheckOut').val());
-            localStorage.setItem("numRoom", $('#numRoom').val());
-            $('#formSearch').submit();
-            //chỉ search với những thông tin trên, reset lại 
-            //window.location.href = '<?php echo base_url()?>handling/search';
-        //}
+        localStorage.setItem("city", $('#autocomplete').val());
+        localStorage.setItem("timeCheckIn", $('#timeCheckIn').val());
+        localStorage.setItem("timeCheckOut", $('#timeCheckOut').val());
+        localStorage.setItem("numRoom", $('#numRoom').val());
+        $('#formSearch').submit();
     }
 });
 
 
-//SET
+//SET VALUE CHO DATE PICKER
 $(function(){
     var nowTemp = new Date();
     var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -120,7 +102,7 @@ $(function(){
     });
 })
 
-//LOAD DỮ LIỆU CHO TYPE HEAD
+//LOAD DỮ LIỆU CHO TYPE HEAD, SEARCH BAR
 var result = Array();
 
 window.onload = function(){
@@ -133,26 +115,11 @@ window.onload = function(){
         type: 'GET',
         success : success,
     });
+    //SET VALUE CHO SEARCH 
     $('#autocomplete').val(localStorage.getItem("city"));
     $('#timeCheckIn').val(localStorage.getItem("timeCheckIn"));
     $('#timeCheckOut').val(localStorage.getItem("timeCheckOut"));
     $('#numRoom').val(localStorage.getItem("numRoom"));
-    // if(document.referrer == '')
-    //     alert('reset page');
-    // for (var product of data.limit) {
-    //     renderProduct(product);   
-    // }
-    //alert('page ready');
-}
-
-function renderPages(n){
-        $(".product-page .pagination li").remove();
-        var quantumProduct = 9;
-        var quantumPage = Math.ceil( n / quantumProduct);
-        for(var i=1; i<=quantumPage; i++){
-            $item = $('<li class="page-item page-link" onclick="show('+i+')">'+i+'</li>');
-            $(".product-page .pagination").append($item);
-        }
 }
 
 function success(a){
@@ -160,24 +127,36 @@ function success(a){
     for (var i = 0; i < a.LtsItem.length; i++) {
         //result.push({title: a.LtsItem[i]['Title'], type: "City"}) 
         result.push(a.LtsItem[i]['Title']) 
-    }       
+    }
+    $.ajax({
+        dataType: 'json',
+        url: '<?php echo(base_url());?>handling/hotels',
+        data: {},
+        type: 'GET',
+        success : function(data){
+            for (var i = 0; i < data.length; i++) {
+                //result.push({title: a.LtsItem[i]['Title'], type: "City"}) 
+                result.push(data[i]['destinationName']); 
+            }
+        },
+    });       
 }
 
 $("#autocomplete").typeahead({  
-source:result,
-//items: 5,
-highlight: false,
-menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
-item: '<li style="width:300px; background-color:#17a2b!important; margin-top:10px;"><a class="dropdown-item" style=":hover:rgba(0, 123, 255, 0.25) 2px solid; width:150px; float: left;" href="#" role="option"></a><div style="float: right;float: right;margin-right: 10px;background-color: aliceblue;border-radius: 5px;padding: 2px 2px 2px 2px;width: 104px;height: 29px;text-align: center;color: black;font-weight: 100;">Thành phố</div></li>',
-//headerHtml: '<li class="dropdown-header"></li>',
-//headerDivider: '<li class="divider" role="separator"></li>',
-//itemContentSelector:'span',
-// minLength: 1,
-// scrollHeight: 0,
-// autoSelect: true,
-// afterSelect: $.noop,
-// afterEmptySelect: $.noop,
-// addItem: false,
-delay: 2,
+    source:result,
+    //items: 5,
+    highlight: false,
+    menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
+    item: '<li style="width:500px; background-color:#17a2b!important; margin-top:10px;"><a class="dropdown-item" style=":hover:rgba(0, 123, 255, 0.25) 2px solid; width:150px; float: left;" href="#" role="option"></a><div style="float: right;float: right;margin-right: 10px;background-color: aliceblue;border-radius: 5px;padding: 2px 2px 2px 2px;width: 104px;height: 29px;text-align: center;color: black;font-weight: 100;">Thành phố</div></li>',
+    //headerHtml: '<li class="dropdown-header"></li>',
+    //headerDivider: '<li class="divider" role="separator"></li>',
+    //itemContentSelector:'span',
+    // minLength: 1,
+    // scrollHeight: 0,
+    // autoSelect: true,
+    // afterSelect: $.noop,
+    // afterEmptySelect: $.noop,
+    // addItem: false,
+    delay: 2,
 });
 </script>
