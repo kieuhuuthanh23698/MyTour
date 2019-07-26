@@ -65,6 +65,8 @@
                         <li><a href="<?php echo base_url()?>admin_partner/inforPartner"><span><i class="fas fa-cart-plus"></i></span>Thông Tin Khách Sạn</a></li>
                         <li><a class="" href="<?php echo base_url()?>admin_partner/billsAdminPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Đơn Đặt Phòng</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/roomPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/convenPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Dịch vụ</a></li>
+                        <li><a href="<?php echo base_url()?>admin_partner/servicePartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Tiện Nghi</a></li>
                     </ul>
                 </div>
             </div>

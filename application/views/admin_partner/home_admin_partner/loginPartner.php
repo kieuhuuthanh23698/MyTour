@@ -21,11 +21,6 @@
                     <input type="password" name="password">
                 </div> 
                 <div class="form-button"> 
-<!--
-                    <div>
-                        <a href=""> Quên mật khẩu</a> 
-                    </div> 
--->
                     <div>
                         <button type="submit" class="btn btn-primary btn-block btn-flat">ĐĂNG NHẬP</button>
                     </div>

@@ -1,4 +1,3 @@
-<!--************************************************* MAIN ********************************************-->
 <script type="text/javascript">
     //ĐỊNH DẠNG TIỀN
     function formatCurrency(number){
@@ -6,13 +5,8 @@
         var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
         return  n2.split('').reverse().join('');
     }
-
-    $(document).ready(function(){
-    renderPages(<?php echo $count?>);
-    $(".product-page .pagination li:first-child").addClass("activepage");
-    })
-
 </script>
+<!--************************************************* MAIN ********************************************-->
 <div class="dest-main padding">
     <div class="container">
         <div class="row">
@@ -37,20 +31,20 @@
                                     <input type="checkbox" name="price" value="1"> Dưới 1 triệu
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="price" value="2"> Từ 1 - 2 triệu
+                                    <input type="checkbox" name="price" value="2"> Từ 1 - 3 triệu
                                 </li>
                                 <li>
-                                    <input type="checkbox" name="price" value="2"> Từ 2 - 3 triệu
+                                    <input type="checkbox" name="price" value="3"> Trên 3 triệu
                                 </li>
                                 
                                 <div class="form-check-inline">
                                   <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Giá tăng dần
+                                    <input id="orderBy1" type="radio" class="form-check-input" name="optradio" value="0">Giá tăng dần
                                   </label>
                                 </div>
                                 <div class="form-check-inline">
                                   <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Giá giảm dần
+                                    <input id="orderBy2" type="radio" class="form-check-input" name="optradio" value="1">Giá giảm dần
                                   </label>
                                 </div>
 
@@ -93,47 +87,46 @@
                         <div class="filter">
                             <h1 class="h2 text-center"> Dịch vụ đi kèm</h1>
                             <ul>
-                                <li><input type="checkbox" name="servive" value="1"> Bữa sáng miễn phí</li>
-                                <li><input type="checkbox" name="servive" value="2"> 3 bữa ăn miễn phí</li>
-                                <li><input type="checkbox" name="servive" value="3"> Thêm giường phụ</li>
+                                <?php foreach ($convenienceDes as $i) {?>
+                                <li><input type="checkbox" name="convenience" value="<?php echo($i['id_convenDes']);?>"> <?php echo($i['name_convenDes']);?></li>
+                                <?php }?>
                             </ul>
                         </div>
 
                         <div class="filter">
                             <h1 class="h2 text-center"> Tiện nghi khách sạn</h1>
                             <ul>
-                                <li><input type="checkbox" name="convenience" value="1"> Hồ bơi</li>
-                                <li><input type="checkbox" name="convenience" value="2"> Massage/Spa </li>
-                                <li><input type="checkbox" name="convenience" value="3"> Wifi miễn phí</li>
-                                <li><input type="checkbox" name="convenience" value="4"> Bãi đỗ xe</li>
-                                <li><input type="checkbox" name="convenience" value="5"> Cho thuê xe máy</li>
+                                <?php foreach ($serviceExtra as $i) {?>
+                                <li><input type="checkbox" name="service" value="<?php echo($i['id_serviceExtra']);?>"> <?php echo($i['serviceExtraName']);?></li>
+                                <?php }?>
                             </ul>
                         </div>
 
+                        <?php if(isset($district)){?>
                         <div class="filter">
                             <h1 class="h2 text-center"> Huyện</h1>
                             <ul>
-                                <li><input type="checkbox" name="district" value="1"> Hội An</li>
-                                <li><input type="checkbox" name="district" value="2"> Tam kỳ</li>
-                                <li><input type="checkbox" name="district" value="3"> Phú Ninh</li>
-                                <li><input type="checkbox" name="district" value="4"> Núi Thành</li>
+                            <?php foreach ($district as $i) {?>
+                                <li><input type="checkbox" name="district" value="<?php echo($i['ID'])?>"> <?php echo($i['Title']);?></li>
+                            <?php }?>
                             </ul>
                         </div>
-
+                        <?php }?>
                     </div>
                 </div>
             </div>
             <div class="col-md-9 dest-page">
 
                 <div class="dest-page-heading">
-                        <h1>Khách sạn <?php echo $destination[0]['city']?></h1>
-                        <p>Có Tất cả <?php echo $count?> khách sạn</p>
+                        <h1>Kết quả tìm kiếm với : <?php echo $search_box;?></h1>
+                        <p>Có Tất cả <?php echo $count;?> khách sạn</p>
                         <a href="#">Xem bản đồ</a>
                         <hr/>
                 </div>
 
                 <div class="dest-page-content">
-                <?php foreach ($destination as $i) {?>
+                <?php if($count > 0 ){ foreach ($destination as $i) {?>
+                    <br>
                     <div class="dest-item">
                         <div class="img">
                             <img width="100%" src="<?php echo base_url()?>public/images/dedicate/1.png"/>
@@ -145,13 +138,13 @@
                                 <i class="fas fa-star"></i>
                                 <?php }?>
                             </p>
-                            <a href="#"><?php echo $i['destinationAddress']." ".$i['city']?></a>
+                            <a href="#"><?php echo $i['destinationAddress']." - ".$i['city']?></a>
                             <p><b style="color: #fd7e14"><?php echo $i['destinationName']?></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>
-                            <p><script type="text/javascript"> document.write(formatCurrency(<?php echo $i['MinPrice']?> + ''));</script> đ</p>
+                            <p  style="color:#17a2b8"><script type="text/javascript"> document.write(formatCurrency(<?php echo $i['price']?> + ''));</script> đ</p>
                             <a class="button" href="#">Xem Phòng</a>
                         </div>
                     </div>
-                <?php }?>
+                <?php }}?>
                 </div>
 
                 <br>
@@ -160,7 +153,6 @@
                     <div class="container">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-
                             </ul>
                         </nav>
                     </div>
@@ -180,8 +172,6 @@
         font-weight: 500;
         font-size: 18px;
     }
-</style>
-<style>
     .filter{
         box-shadow: 3px 3px 10px gray;
     }
@@ -237,82 +227,113 @@
     }
     .fa-star:before {
     color: yellow;
-    }
-    
+    }   
 </style>
 <script type="text/javascript">
-    // window.onload = function(){
-    //     alert('page ready 2');
-    // }
 
     function arrChecked(nameCheckBox)
     {
-        var checkbox = document.getElementsByName(nameCheckBox);
+        var checkboxes = document.getElementsByName(nameCheckBox);
         var arrChecked = [];
-        for (var i = 0; i < checkbox.length; i++){
-            if (checkbox[i].checked === true){
-                arrChecked.push(checkbox[i].value);
+        for (var i = 0; i < checkboxes.length; i++){
+            if (checkboxes[i].checked === true){
+                arrChecked.push(checkboxes[i].value);
             }
         }
         return arrChecked;
     }
 
-    function filter()
+    function valChecked(nameRadioButton)
     {
-        // $('#listSanPham').children().remove();
-        //gửi các array sang ulr fillter
-        // $.ajax({
-        // type    : 'POST',
-        // url     : '<?php echo base_url();?>handling/fillter',
-        // dataType: 'json',
-        // data    : {
-        //             city : $('#autocomplete').val(),
-        //             timeCheckIn : $('#timeCheckIn').val(),
-        //             timeCheckOut : $('#timeCheckOut').val(),
-        //             numRoom : $('#numRoom').val(),
-        //             typeDes : JSON.stringify(arrChecked('typeDes')),              
-        //             price : JSON.stringify(arrChecked('price')),              
-        //             star : JSON.stringify(arrChecked('star')),              
-        //             servive : JSON.stringify(arrChecked('servive')),              
-        //             convenience : JSON.stringify(arrChecked('convenience')),              
-        //             district : JSON.stringify(arrChecked('district')),
-        //           }
-        // });
-        // .done(function(data){
-        // debugger;
-        // console.log(data);
-        // for (var i = 0; i < data.length; i++) {
-        //         //tạo khối html sản phẩm
-        //         var item = '<div class="col-md-4 col-sm-6 ctsp">' +
-        //                     '<div class="thumbnail">' +
-        //                         '<img src="<?php echo base_url();?>images/' + data[i].image + '">' +
-        //                         '<div class="caption">' +
-        //                             '<h3>' + data[i].ten_sanpham + '</h3>' +
-        //                             '<p class="httt">Giá: ' + data[i].price + '</p>' +
-        //                             '<p>' +
-        //                                 '<a href="<?php echo base_url()?>controlpage/dathang/' + data[i].id_sanpham + '" class="btn btn-primary" role="button" data-toggle="tooltip" title="Đặt hàng" data-placement="bottom">Đặt hàng</a>' +
-        //                                 '<a href="#" class="btn btn-default" role="button">Chi Tiết</a>' +
-        //                             '</p>' +
-        //                         '</div>' +
-        //                     '</div>' +
-        //                 '</div>';
-        //         //add vào html
-        //         if(document.getElementById("listSanPham").innerHTML != null)
-        //             document.getElementById("listSanPham").innerHTML += item;
-        //         else
-        //             document.getElementById("listSanPham").innerHTML = item;
-        //     }
-        // });
+        debugger;
+        var radioButtons = document.getElementsByName(nameRadioButton);
+        var valChecked = 0;
+        for (var i = 0; i < radioButtons.length; i++){
+            if (radioButtons[i].checked === true){
+                valChecked = radioButtons[i].value;
+            }
+        }
+        //alert('radio val : ' + valChecked);
+        return valChecked;
     }
 
 
-    //
+    function filter(PAGE)
+    {
+
+        //alert("vào hàm filter");
+        //alert("city : " + $('#autocomplete').val());
+        $('.dest-page-content').text('');
+        //gửi các array sang ulr fillter
+        $.ajax({
+        type    : 'POST',
+        url     : '<?php echo base_url();?>handling/filter',
+        dataType: 'json',
+        data    : {
+                    page : PAGE,
+                    city : $('#autocomplete').val(),
+                    timeCheckIn : $('#timeCheckIn').val(),
+                    timeCheckOut : $('#timeCheckOut').val(),
+                    numRoom : $('#numRoom').val(),
+                    typeDes : JSON.stringify(arrChecked('typeDes')),              
+                    price : JSON.stringify(arrChecked('price')),
+                    orderBy : valChecked('optradio'),
+                    star : JSON.stringify(arrChecked('star')),              
+                    service : JSON.stringify(arrChecked('service')),              
+                    convenience : JSON.stringify(arrChecked('convenience')),              
+                    district : JSON.stringify(arrChecked('district')),
+                  },
+        success: function(data){
+        //alert(data.query);
+        $('.dest-page-heading h1').text('Kết quả tìm kiếm với : ' + data.search_box);
+        $('.dest-page-heading p').text('Có tất cả ' + data.count + ' khách sạn.');
+        renderPages(data.count);
+        for (var i = 0; i < data.destination.length; i++) {
+                //tạo khối html sản phẩm
+                var item = '<div class="dest-item">' +
+                        '<div class="img">' +
+                            '<img width="100%" src="<?php echo base_url()?>public/images/dedicate/1.png"/>' +
+                        '</div>' +
+                        '<div class="content">'+
+                            '<h1 style="color: #19d3af">' + data.destination[i].destinationName + '</h1>'+
+                            '<p>';
+                            for(var j = 0; j < data.destination[i].star; j++){
+                                    item += '<i class="fas fa-star"></i>';
+                            }
+                            item += '</p>' +
+                            '<a href="#">' + data.destination[i].destinationName + " - " + data.destination[i].city +'</a>' +
+                            '<p><b style="color: #fd7e14"></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>' +
+                            '<p style="color:#17a2b8">' + formatCurrency(data.destination[i].MinPrice) + ' đ</p><a class="button" href="">Xem Phòng</a></div></div>';
+                $('.dest-page-content').append(item);
+            }
+        },
+        });
+    }
+
+
+    //MỖI LẦN CLICK VÀO CÁC FILTER THÌ XÓA PAGES, FILTER VỀ RESULT VÀ VẼ LẠI PAGES
     $('.filter li').on('click', function(){
+        //$(".product-page .row").children().remove();
         $(this).children('input').prop('checked',!$(this).children('input').prop('checked'));
-        filter();
+        //alert('click filter id 1');
+        filter(1);
     });
 
 
+    $('#orderBy1').on('click', function(){
+        $(this).prop('checked',!$(this).children('input').prop('checked'));
+        //alert('click filter id 1');
+        filter(1);
+    });
+
+
+    $('#orderBy2').on('click', function(){
+        $(this).prop('checked',!$(this).children('input').prop('checked'));
+        //alert('click filter id 2');
+        filter(1);
+    });
+
+    //chưa cần sử dụng
     function action2(){
         var page = "1";
         $(".product-page .page-item").each(function(index){
@@ -354,85 +375,37 @@
     }
 
     function show($i){
-        deleteActive();
-        $(".product-page .page-item:nth-child("+$i+")").addClass("activepage");
-        $(".product-page .row").children().remove();
-        action2();
-    }
-
-    function renderProduct(product){
-        $item = "";
-        if(product.quantumDiscount != null){
-            var sellprice = product.price * (1 - product.quantumDiscount/100);
-            sellprice = sellprice.toString();
-            $item = $('<div class="col-md-4">'+
-                  '<div class="product-dec">'+
-                      '<a href="<?php echo base_url()?>Handling/chitietsanpham/'+product.id+'">'+
-                        '<div class="product-page-item">'+
-                            '<div class="img">'+
-                                '<img width="100%" src="<?php echo base_url() ?>public/images/products/'+product.image+'"/>'+
-                            '</div>'+
-                            
-                            '<div class="content text-center">'+
-                                '<h1 class="h5">'+product.name+'</h1>'+
-                                '<span class="pricesell">'+formatCurrency(sellprice)+' đ</span>'+
-                                '<span class="price line">'+formatCurrency(product.price)+' đ</span>'+
-                            '</div>'+
-                            '<div class="discount-ribbon">'+
-                                '<div class="discount-ribbon-inner">-'+product.quantumDiscount+'%</div>'+
-                            '</div>'+
-                        '</div>'+
-                        '</a>'+
-                        '<div class="icon">'+
-                            '<span><i class="fas fa-heart"></i></span>'+
-                            '<span><i class="fas fa-cart-plus"></i></span>'+
-                            '<span><button onclick="order('+product.id+')"><i class="fas fa-cart-plus"></button></i></span>'+
-                        '</div>'+
-                    '</div>'+
-                    '</div>');
-            
-        }else{
-            var rrp = product.rrp;
-            if(rrp == 0){
-                rrp = "";
-            }
-            else{
-                rrp = formatCurrency(rrp.toString());
-                rrp += "đ";
-            }
-            $item = $('<div class="col-md-4">'+
-                  '<div class="product-dec">'+
-                      '<a href="<?php echo base_url()?>Handling/chitietsanpham/'+product.id+'">'+
-                        '<div class="product-page-item">'+
-                            '<div class="img">'+
-                                '<img width="100%" src="<?php echo base_url() ?>public/images/products/'+product.image+'"/>'+
-                            '</div>'+
-                            
-                            '<div class="content text-center">'+
-                                '<h1 class="h5">'+product.name+'</h1>'+
-                                '<span class="price">'+formatCurrency(product.price)+' đ</span>'+
-                                '<span class="rrp line">'+rrp+'</span>'+
-                            '</div>'+
-                        '</div>'+
-                        '</a>'+
-                        '<div class="icon">'+
-                            '<span><i class="fas fa-heart"></i></span>'+
-                            '<span><i class="fas fa-cart-plus"></i></span>'+
-                            '<span><button onclick="order('+product.id+')"><i class="fas fa-cart-plus"></button></i></span>'+
-                        '</div>'+
-                    '</div>'+
-                    '</div>');
-            
-        }
-        $a = $(".product-page .row");
-        $a.append($item);
-        
-        }
-
-    function deleteActive(){
+        //alert("show " + $i);
         $(".product-page .page-item").each(function(index){
             $(this).removeClass("activepage");
         })
+        $(".product-page .page-item:nth-child("+$i+")").addClass("activepage");
+        filter($i);
     }
+
+    function renderPages(n){
+        //alert("Render page " + n);
+        $(".product-page .pagination li").remove();
+        var quantumProduct = 5;
+        var quantumPage = Math.ceil( n / quantumProduct);
+        for(var i=1; i<= quantumPage; i++){
+            $item = $('<li class="page-item page-link" onclick="show('+i+')">'+i+'</li>');
+            $(".product-page .pagination").append($item);
+        }
+        $(".product-page .pagination li:first-child").addClass("activepage");
+    }
+
+    $(document).ready(function(){
+        //NẾU RESET PAGE THÌ LÀM RỖNG SESSION
+        if(document.referrer == '' || document.referrer == '<?php echo base_url()?>handling/search')
+        {
+            localStorage.setItem("city", '');
+            localStorage.setItem("timeCheckIn", '');
+            localStorage.setItem("timeCheckOut",'');
+            localStorage.setItem("numRoom",'');
+        }
+        //TẠO PAGES
+        renderPages(<?php echo $count?>);
+    })
 
 </script>

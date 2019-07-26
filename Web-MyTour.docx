@@ -112,3 +112,241 @@ GROUP BY `id_dest`
 WHERE `b`.`id_dest` = `destination`.`id_destination`
       AND`b`.`All_EmptyRoom` > 10
       AND `destination`.`city` LIKE '%M%' 
+
+
+
+
+
+
+			// headers: {
+			// 			    		"Access-Control-Allow-Origin": "http://localhost:8080",
+  	// 								}
+								    // "Cache-Control": "no-cache",
+								    // "Postman-Token": "ff1a5da1-9e3b-45fa-b3b3-a842567d5fcd,829a9cd3-b68e-4218-8fae-b7f71030f15f",
+								    // "cache-control": "no-cache",
+								    // "User-Agent": "PostmanRuntime/7.15.0",
+								    // "Host": "thongtindoanhnghiep.co",
+								    // "accept-encoding": "gzip, deflate",
+								    // "Connection": "keep-alive",
+								    // "Origin": "http://localhost:8080",
+
+						    		// "Accept": "*/*",
+
+
+		//     var settings = {
+		// 				"async": true,
+		// 				"crossDomain": true,
+		// 				"url": "https://thongtindoanhnghiep.co/api/city",
+		// 				"method": "GET",
+		// 				"headers": {
+
+		// 						    "Cache-Control": "no-cache",
+		// 						    "Postman-Token": "ff1a5da1-9e3b-45fa-b3b3-a842567d5fcd,829a9cd3-b68e-4218-8fae-b7f71030f15f",
+		// 						    "cache-control": "no-cache",
+
+		// 				    		"Accept": "*/*",
+		// 				    		"Access-Control-Allow-Origin": "http://localhost:8080",
+  // 									}
+		// }
+
+	// $.ajax(settings).done(function (response) {
+	// console.log(response);
+	// });
+// $.get( "ajax/https://thongtindoanhnghiep.co/api/city", function( data ) {
+//   //$( ".result" ).html( data );
+//   alert("Data : " + data);
+//   alert( "Load was performed." );
+// });
+
+onload :
+load lên tên city , distric , ward của partner
+
+khi select city change thì gọi hàm city(), city() gọi ward()
+
+
+lấy tất cả các city, district, ward, hotel, resot : title + id + type
+gửi vào memmory storage 
+fillter hotel : mức giá, hạng sao, loại hình, dịch vụ, tiện nghi, quận , xã	
+
+
+status cho destination, city
+
+
+auto complet text success
+
+
+<script type="text/javascript">
+    var result = Array();
+
+    window.onload = function(){
+        //GET JSON ALL CITIES
+        var URL = 'https://thongtindoanhnghiep.co/api/city';
+        $.ajax({
+            dataType: 'json',
+            url: 'http://localhost:8080/MyTour/admin_partner/inforPartner/getAPI',
+            data: {url :URL},
+            type: 'GET',
+            success : success,
+        });
+
+    }
+
+    function success(a){
+        //ADD ALL CITIES INTO ARRAY RESULT
+        for (var i = 0; i < a.LtsItem.length; i++) {
+            //result.push({title: a.LtsItem[i]['Title'], type: "City"}) 
+            result.push(a.LtsItem[i]['Title']) 
+        }       
+    }
+
+//ko chuyển trang tại trang search
+//
+
+$("#autocomplete").typeahead({  
+source:result,
+//items: 5,
+menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
+item: '<li style="width:300px; background-color:#17a2b!important; margin-top:10px;"><a class="dropdown-item" style=":hover:rgba(0, 123, 255, 0.25) 2px solid; width:150px; float: left;" href="#" role="option"></a><div style="float: right;float: right;margin-right: 10px;background-color: aliceblue;border-radius: 5px;padding: 2px 2px 2px 2px;width: 104px;height: 29px;text-align: center;color: black;font-weight: 100;">Khách sạn</div></li>',
+//headerHtml: '<li class="dropdown-header"></li>',
+//headerDivider: '<li class="divider" role="separator"></li>',
+//itemContentSelector:'a',
+// minLength: 1,
+// scrollHeight: 0,
+// autoSelect: true,
+// afterSelect: $.noop,
+// afterEmptySelect: $.noop,
+// addItem: false,
+delay: 2,
+});
+
+
+</script>
+
+làm  lại search, 
+
+
+
+
+// set_time_limit(0);
+		// $cities = $this->M_data->getAPI('https://thongtindoanhnghiep.co/api/city');
+		// $arrCity = array();
+		// for ($i = 0; $i < count($cities['LtsItem']); $i++) { 
+		// 	array_push($arrCity, array('id' => $cities['LtsItem'][$i]['ID'], 'title' => $cities['LtsItem'][$i]['Title'], 'type' => 'City'));
+		// }
+
+		// echo count($arrCity);
+		// // echo "Cities <br><br>";
+		// // for ($i=0; $i < count($arrCity); $i++) { 
+		// // 	echo $arrCity[$i]['id']." ".$arrCity[$i]['title']." ".$arrCity[$i]['type']."<br>";
+		// // }
+
+
+
+		// $arrDistrict = array();
+		// for ($i=0; $i < count($arrCity); $i++) {
+		// 	//echo 'https://thongtindoanhnghiep.co/api/city/'.$arrCity[$i]['id'].'/district<br>';
+		// 	$district = $this->M_data->getAPI('https://thongtindoanhnghiep.co/api/city/'.$arrCity[$i]['id'].'/district');
+		// 	for ($i = 0; $i < count($district); $i++) { 
+		// 		array_push($arrDistrict, array('id' => $district[$i]['ID'], 'title' => $district[$i]['Title'], 'type' => 'District'));
+		// 	}
+		// }
+
+		// echo count($arrDistrict);
+		// // echo "District <br><br>";
+		// // for ($i=0; $i < count($arrDistrict); $i++) { 
+		// // 	echo $arrDistrict[$i]['id']." ".$arrDistrict[$i]['title']." ".$arrDistrict[$i]['type']."<br>";
+		// // }
+
+		// $arrWard = array();
+		// for ($i=0; $i < count($arrDistrict); $i++) {
+		// 	echo 'https://thongtindoanhnghiep.co/api/district/'.$arrDistrict[$i]['id'].'/ward<br>';
+		// 	$ward = $this->M_data->getAPI('https://thongtindoanhnghiep.co/api/district/'.$arrDistrict[$i]['id'].'/ward<br>');
+		// 	for ($i = 0; $i < count($ward); $i++) { 
+		// 		array_push($arrWard, array('id' => $ward[$i]['ID'], 'title' => $ward[$i]['Title'], 'type' => 'District'));
+		// 	}
+		// }
+
+		// echo count($arrWard);
+		// echo "District <br><br>";
+		// for ($i=0; $i < count($arrDistrict); $i++) { 
+		// 	echo $arrDistrict[$i]['id']." ".$arrDistrict[$i]['title']." ".$arrDistrict[$i]['type']."<br>";
+		// }
+--search destination theo tên thành phố hoặc tên khách sạn, ngày đến, ngày đi, số phòng cần đặt
+SELECT *
+FROM
+(
+SELECT `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (SUM(`quantum`) -  SUM(COALESCE(`roomquantum`,0))) AS EmptyRoom 
+FROM `roomtypedetail`
+LEFT JOIN 
+	   (
+		SELECT id_dest, id_room, `roomquantum`
+		FROM `billdetail`, `bills`
+		WHERE ((`dateFrom` BETWEEN '2019-7-14' AND '2019-7-20') OR (`dateTo` BETWEEN '2019-7-14' AND '2019-7-20'))
+		AND `bills`.`id_bills` = `billdetail`.`id_bill`
+	   ) AS BookedBills -- những hóa đơn đặt phòng ĐANG CÓ trong khoảng thời gian từ A - B
+	   
+ON `roomtypedetail`.`id_room` = `BookedBills`.`id_room`	AND `roomtypedetail`.`id_dest` = `BookedBills`.`id_dest`
+GROUP BY `id_dest`
+) AS EmptyRooms -- số phòng trống của mỗi khách sạn trong khoảng thời gian từ A - B
+, `destination`, `roomtypedetail`-- những table liên quan đến search
+WHERE `EmptyRooms`.`id_dest`	= `destination`.`id_destination` 
+AND `EmptyRooms`.`id_dest` = `roomtypedetail`.`id_dest`
+AND`EmptyRooms`.`EmptyRoom` > 10
+AND (`destination`.`city` LIKE  '%%'  
+OR `destination`.`destinationName` LIKE '%%') 
+AND `destination`.`status` = 0
+GROUP BY `roomtypedetail`.`id_dest`
+
+-- filter theo tiện nghi và dịch vụ
+SELECT * FROM
+(
+SELECT * FROM
+(
+-- filter service
+SELECT `destination`.`id_destination`, `roomtypedetail`.`id_room`, EmptyRoom, MIN(`roomtypedetail`.`price`) AS MinPrice
+FROM
+(
+SELECT `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (SUM(`quantum`) -  SUM(COALESCE(`roomquantum`,0))) AS EmptyRoom 
+FROM `roomtypedetail`
+LEFT JOIN 
+	   (
+		SELECT id_dest, id_room, `roomquantum`
+		FROM `billdetail`, `bills`
+		WHERE ((`dateFrom` BETWEEN '2019-7-14' AND '2019-7-20') OR (`dateTo` BETWEEN '2019-7-14' AND '2019-7-20'))
+		AND `bills`.`id_bills` = `billdetail`.`id_bill`
+	   ) AS BookedBills -- những hóa đơn đặt phòng ĐANG CÓ trong khoảng thời gian từ A - B
+	   
+ON `roomtypedetail`.`id_room` = `BookedBills`.`id_room`	AND `roomtypedetail`.`id_dest` = `BookedBills`.`id_dest`
+GROUP BY `id_dest`
+) AS EmptyRooms -- số phòng trống của mỗi khách sạn trong khoảng thời gian từ A - B
+, `destination`, `roomtypedetail`-- những table liên quan đến search, filter : loại hình, mức giá, hạng sao, dịch vụ đi kèm, tiện nghi, huyện
+
+WHERE `EmptyRooms`.`id_dest` = `destination`.`id_destination` 
+AND `EmptyRooms`.`id_dest` = `roomtypedetail`.`id_dest`
+
+AND`EmptyRooms`.`EmptyRoom` > 10 -- số phòng trống
+AND (`destination`.`city` LIKE  '%%' OR `destination`.`destinationName` LIKE '%%') -- tên search
+AND `destination`.`status` = 0
+AND (`destination`.`id_prop` = 1 OR `destination`.`id_prop` = 2) -- loại hình
+AND ( ( `roomtypedetail`.`price` < 1000000 ) -- mức giá 
+OR  ( `roomtypedetail`.`price` > 1000000 AND `roomtypedetail`.`price` < 3000000 ) 
+OR  ( `roomtypedetail`.`price` > 5000000 ) )
+AND ( (`star` = 1) OR (`star` = 2) OR (`star` = 3) OR (`star` = 4) OR (`star` = 5) ) -- hạng sao
+GROUP BY `roomtypedetail`.`id_dest`
+
+-- filter service
+) AS `A` LEFT JOIN `serviceextradetail`
+ON  `A`.`id_destination` = `serviceextradetail`.`id_dest`
+WHERE ( (`id_service` = 1) OR (`id_service` = 2) OR (`id_service` = 4) ) 
+) AS `B` LEFT JOIN `convenience_des_detail`
+ON `B`.`id_destination` = `convenience_des_detail`.`id_conven_dest`
+WHERE ( (`id_conven_dest` = 1) OR (`id_conven_dest` = 2))
+
+
+
+khi bấm search, submit form, thì search theo giá trị của search bar
+tìm ra id thành phố từ input search
+
+quản lý các dịch vụ đi kèm và tiện nghi của destination
+	partner : hiển thị tất cả, cho update status show/hide, delete, cho thêm mới, chờ xác nhận từ bên admin my tour
+	admin mytour: udpate status disable/enable
