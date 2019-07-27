@@ -20,15 +20,31 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                
+                    <img width="100%" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
                 </div>
                 <div class="col-md-6">
-                
+                    <img width="100%" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
+                </div>
+                <div class="col-md-6">
+                    <img width="100%" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
+                </div>
+                <div class="col-md-6">
+                    <img width="100%" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .des-img .row{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .des-img .row>div{
+        padding-left: 0;
+        padding-right: 0;
+    }
+</style>
 <div class="des-order pt-5">
     <div class="container">
         <table class="table table-bordered">
@@ -119,7 +135,7 @@
     <div class="container">
         <h1>Danh Sách Phòng Đặt</h1>
         <table class="table table-bordered">
-            <thead  style="text-align: center">
+            <thead  style="text-align: center;background-color: #2d3d4e; color: #fff">
                 <tr>
                     <th>Loại Phòng</th>
                     <th>Giá 1 Đêm</th>

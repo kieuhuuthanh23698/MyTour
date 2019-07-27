@@ -64,6 +64,7 @@
         color: #ffffff;
         font-weight: 500;
         text-decoration: none;
+        cursor: pointer;
     }
 </style>
 <script type="text/javascript">
