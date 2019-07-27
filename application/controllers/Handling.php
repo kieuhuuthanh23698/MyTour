@@ -263,5 +263,13 @@ class Handling extends CI_Controller {
 		$query = "select destinationName from destination";
 		echo json_encode($this->M_data->load_query($query));
 	}
+    public function destinationDetail(){
+        $view['header'] = $this->load->view('home/header', NULL, TRUE);
+		$view['search'] = $this->load->view('home/search', NULL, TRUE);
+		$view['body'] = $this->load->view('page/destinationDetail', NULL, TRUE);
+		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
+		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+		$this->load->view('home/masterHome', $view);
+    }
 
 }
