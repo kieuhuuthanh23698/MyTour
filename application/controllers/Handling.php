@@ -49,11 +49,11 @@ class Handling extends CI_Controller {
 		if($city != '')
 		{
 			$query .= " AND (`destination`.`city` LIKE  '%".$city."%' OR `destination`.`destinationName` LIKE '%".$city."%')";
-			$cityID = $this->M_data->load_query("select `destinationCounty` FROM `destination` WHERE `city` = '".$city."' OR `destinationName` = '".$city."' LIMIT 0,1")[0]['destinationCounty'];
-			if($cityID != '')
+			$cityID = $this->M_data->load_query("select `destinationCounty` FROM `destination` WHERE `city` = '".$city."' OR `destinationName` = '".$city."' LIMIT 0,1");
+			if(count($cityID) > 0)
 			{
 				//load những huyện của city này
-				$result_search['district'] = $this->M_data->getAPI("https://thongtindoanhnghiep.co/api/city/".$cityID."/district");
+				$result_search['district'] = $this->M_data->getAPI("https://thongtindoanhnghiep.co/api/city/".$cityID[0]['destinationCounty']."/district");
 			}
 		}
 		$query .= "AND `destination`.`status` = 0 GROUP BY `roomtypedetail`.`id_dest`";
