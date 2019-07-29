@@ -3,16 +3,16 @@
         <div class="container text-center">
             <div id="prefetch">
                 <i class="fas fa-bed"></i>
-                <input name="search_box" id="autocomplete" autocomplete="false" class="typeahead" style="width: 250px;" type="search" placeholder="Nhập tên thành phố">
+                <input name="search_box" id="autocomplete" autocomplete="off" class="typeahead" style="width: 250px;" type="search" placeholder="Nhập tên thành phố">
             </div>
             <div class="room-time">
                 <i class="far fa-calendar"></i>
-                <input type="text" id="timeCheckIn" name="timeCheckIn" placeholder="Ngày đặt phòng" />
+                <input type="text" id="timeCheckIn" name="timeCheckIn" readonly="readonly" />
                 <i class="far fa-calendar"></i>
-                <input type="text" id="timeCheckOut" name="timeCheckOut" />
+                <input type="text" id="timeCheckOut" name="timeCheckOut" readonly="readonly" />
             </div>
             <div>
-                <input id="numRoom" name="numRoom" type="number" value="1" min="1" max="10" />
+                <input id="numRoom" name="numRoom" type="number" required value="1" min="1" max="10" />
                 <span>Phòng</span>
             </div>
             <div id="search">
@@ -89,7 +89,7 @@ $(function(){
     var nowTemp = new Date();
     var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
     $('#timeCheckIn').val(now.getDate() + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
-    $('#timeCheckOut').val((now.getDate()) + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
+    $('#timeCheckOut').val((now.getDate() + 1) + '/' + (now.getMonth() + 1) + '/' +  now.getFullYear());
     $('#timeCheckIn').datepicker({
         dateFormat: "dd/mm/yy",
         minDate: new Date(),
@@ -101,6 +101,8 @@ $(function(){
         dateFormat: "dd/mm/yy",
         minDate: new Date(),
     });
+
+
 })
 
 //LOAD DỮ LIỆU CHO TYPE HEAD, SEARCH BAR
@@ -116,11 +118,15 @@ window.onload = function(){
         type: 'GET',
         success : success,
     });
-    //SET VALUE CHO SEARCH 
-    $('#autocomplete').val(localStorage.getItem("city"));
-    $('#timeCheckIn').val(localStorage.getItem("timeCheckIn"));
-    $('#timeCheckOut').val(localStorage.getItem("timeCheckOut"));
-    $('#numRoom').val(localStorage.getItem("numRoom"));
+    //SET VALUE CHO SEARCH
+    if(localStorage.getItem("city") != " ")
+        $('#autocomplete').val(localStorage.getItem("city"));
+    if(localStorage.getItem("timeCheckIn") != "")
+        $('#timeCheckIn').val(localStorage.getItem("timeCheckIn"));
+    if(localStorage.getItem("timeCheckOut") != "")
+        $('#timeCheckOut').val(localStorage.getItem("timeCheckOut"));
+    if(localStorage.getItem("numRoom") != "")
+        $('#numRoom').val(localStorage.getItem("numRoom"));
 }
 
 function success(a){
@@ -160,4 +166,11 @@ $("#autocomplete").typeahead({
     // addItem: false,
     delay: 2,
 });
+
+$('#numRoom').on('change',function(e){
+    if (e.target.value == '') {
+      e.target.value = 1;
+    }
+  });
+
 </script>

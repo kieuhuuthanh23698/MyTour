@@ -63,18 +63,14 @@ class Handling extends CI_Controller {
 		$view['search'] = $this->load->view('home/search', NULL, TRUE);//search bar
 		$result_search['destination'] = $this->M_data->load_query($query." limit ".$limit1.",".$limit2);
 		$result_search['search_box'] = $city;
+		$result_search['dateFrom'] = $dateFrom;
+		$result_search['dateTo'] = $dateTo;
 		$result_search['convenienceDes'] = $this->M_data->load_query('select * from conveniencedes where status_conven_des = 0');
 		$result_search['serviceExtra'] = $this->M_data->load_query('select * from serviceextra');
 		$view['body'] = $this->load->view('page/bodySearch', $result_search, TRUE);
 
 		//$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
-	}
-
-
-	public function pms()
-	{
-		$this->load->view('home/loginDoiTac');	
 	}
 
 	public function detailHotel()
@@ -258,18 +254,21 @@ class Handling extends CI_Controller {
 		echo json_encode($result_search);
 	}
 
+	//data cho auto complete text search
 	public function hotels()
 	{
 		$query = "select destinationName from destination";
 		echo json_encode($this->M_data->load_query($query));
 	}
     public function destinationDetail(){
-        $view['header'] = $this->load->view('home/header', NULL, TRUE);
-		$view['search'] = $this->load->view('home/search', NULL, TRUE);
-		$view['body'] = $this->load->view('page/destinationDetail', NULL, TRUE);
-		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
-		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
-		$this->load->view('home/masterHome', $view);
+    	echo $this->input->get('dateFrom');
+  //       $view['header'] = $this->load->view('home/header', NULL, TRUE);
+		// $view['search'] = $this->load->view('home/search', NULL, TRUE);
+  //   	$data['destination'] = $this->M_data->load_query('select * from destination where id_destination = '.$idDes);
+		// $view['body'] = $this->load->view('page/destinationDetail', $data, TRUE);
+		// $footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
+		// $view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+		// $this->load->view('home/masterHome', $view);
     }
 
 }

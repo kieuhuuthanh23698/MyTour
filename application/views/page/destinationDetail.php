@@ -1,8 +1,8 @@
 <div class="des-heading pt-5">
     <div class="container">
-        <h1>Khách sạn Magonia Đà Nẵng</h1>
+        <h1><?php echo $destination['destinationName']?></h1>
         <span></span>
-        <a href="#">06 Lê Lợi, Phường Thạch Thang, Hải Châu, Đà Nẵng</a>
+        <a href="#"><?php echo $destination['destinationAddress'].' '.$destination['district'].' '.$destination['city']?></a>
     </div>
 </div>
 <style>

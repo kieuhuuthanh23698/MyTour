@@ -138,10 +138,11 @@
                                 <i class="fas fa-star"></i>
                                 <?php }?>
                             </p>
+                            <?php echo $dateFrom;?>
                             <a href="#"><?php echo $i['destinationAddress']." - ".$i['city']?></a>
                             <p><b style="color: #fd7e14"><?php echo $i['destinationName']?></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>
                             <p  style="color:#17a2b8"><script type="text/javascript"> document.write(formatCurrency(<?php echo $i['price']?> + ''));</script> đ</p>
-                            <a class="button" href="#">Xem Phòng</a>
+                            <a class="button" href="<?php echo base_url().'handling/destinationDetail?idDes='.$i['id_dest'].'&dateFrom='.$dateFrom.'&dateTo='.$dateTo;?>">Xem Phòng</a>
                         </div>
                     </div>
                 <?php }}?>
@@ -303,7 +304,7 @@
                             item += '</p>' +
                             '<a href="#">' + data.destination[i].destinationName + " - " + data.destination[i].city +'</a>' +
                             '<p><b style="color: #fd7e14"></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>' +
-                            '<p style="color:#17a2b8">' + formatCurrency(data.destination[i].MinPrice) + ' đ</p><a class="button" href="">Xem Phòng</a></div></div>';
+                            '<p style="color:#17a2b8">' + formatCurrency(data.destination[i].MinPrice) + ' đ</p><a class="button" href="<?php echo base_url()?>handling/destinationDetail/' + data.destination[i].id_destination + '/' + $('#timeCheckIn').val() +'/' + $('#timeCheckOut').val() +'">Xem Phòng</a></div></div>';
                 $('.dest-page-content').append(item);
             }
         },
@@ -332,6 +333,15 @@
         //alert('click filter id 2');
         filter(1);
     });
+
+
+    $('#timeCheckIn').on('change', function(){
+        filter(1);
+    })
+
+    $('#timeCheckOut').on('change', function(){
+        filter(1);
+    })
 
     //chưa cần sử dụng
     function action2(){
@@ -400,9 +410,7 @@
         if(document.referrer == '' || document.referrer == '<?php echo base_url()?>handling/search')
         {
             localStorage.setItem("city", '');
-            localStorage.setItem("timeCheckIn", '');
-            localStorage.setItem("timeCheckOut",'');
-            localStorage.setItem("numRoom",'');
+            localStorage.setItem("numRoom",'1');
         }
         //TẠO PAGES
         renderPages(<?php echo $count?>);
