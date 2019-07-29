@@ -27,6 +27,11 @@
 .active-yellow{
     color: yellow !important;
 }
+.max-width{
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /*************************** Header-top ************************************/
 .header-top{

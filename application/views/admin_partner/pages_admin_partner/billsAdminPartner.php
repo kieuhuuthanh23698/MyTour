@@ -119,6 +119,7 @@
             })
             .done(function(data){
                 console.log(data);
+                $("#billDetailModal tbody").children().remove();
                 for(var item of data){
                     $item = $('<tr><td>'+item.roomTypeName+'</td><td>'+item.price+'</td>'+
                     '<td>'+item.roomquantum+'</td><td>'+item.dateFrom+'</td><td>'+item.dateTo+'</td><td>'+item.money+'</td></tr>');

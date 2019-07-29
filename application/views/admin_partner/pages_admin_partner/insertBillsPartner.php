@@ -215,10 +215,11 @@
                     '<button onclick="deleteRoom('+id_roomType+')" class="btn btn-warning">Xóa</button></td></tr>    ');
             $(".room-list tbody").append($item);
             
-            var totalMoney = Number($("#total-money").text().replaceAll(',', ''));
-            price = Number(price.replaceAll(',', ''));
-            var updateTotalMoney = totalMoney + price;
-            $("#total-money").text(formatCurrency(updateTotalMoney.toString()));
+//            var totalMoney = Number($("#total-money").text().replaceAll(',', ''));
+//            price = Number(price.replaceAll(',', ''));
+//            var updateTotalMoney = totalMoney + price;
+//            $("#total-money").text(formatCurrency(updateTotalMoney.toString()));
+            loadTotalMoney();
             
             loadAddRoom();
             alert("Phòng đã được thêm vào danh sách");
@@ -267,6 +268,14 @@
         })
         
     })
+    function loadTotalMoney(){
+        var totalMoney = 0;
+        for(var i=0; i<$(".room-list tbody tr").length; i++){
+            var money = Number($(".room-list .money span")[i].innerHTML.replaceAll(',', ''));
+            totalMoney += money;
+        }
+        $("#total-money").text(formatCurrency(totalMoney.toString()));
+    }
     function loadAddRoom(){
         $("#listRoomSelect").children().remove();
         // load dữ liệu lên model add room
@@ -351,6 +360,7 @@
         if(answer){
             $("#id"+$id).remove();
         }
+        loadTotalMoney();
     }
     function formatCurrency(number){
         var n = number.split('').reverse().join("");

@@ -1,6 +1,6 @@
 
 <!--**************************************** dedicate to you *****************************************************-->
-<div class="dedicate pt-5">
+<div class="dedicate pt-5 max-width">
     <div class="dedicate-heading text-center">
         <h1>Dành Riêng Cho Bạn</h1>
         <p>Địa điểm nổi bật có giá tốt nhất</p>
@@ -216,7 +216,7 @@
         position: absolute;
         left: 0;
         bottom: 0;
-        background-color: #2d3d4e;
+        background-color: #778da5;
         color: #ffffff;
         width: 100%;
         border-bottom-left-radius: 10px;
