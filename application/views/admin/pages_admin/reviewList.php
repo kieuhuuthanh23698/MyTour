@@ -41,9 +41,8 @@
 
 
 <script>
-    $(document).ready( function () {
+    $(document).ready(function(){
         $('#billsTable').DataTable();
-        
         var t = $('#billsTable').DataTable();
         $.get( "<?php echo base_url()?>admin/reviewList/listDes", function( data ) {
             console.log(data);
@@ -53,31 +52,29 @@
                     des.destinationName,
                     des.destinationPhone,
                     des.destinationEmail,
-                    '<button class="btn btn-primary" onclick="confirm('+des.id_destination+')" >Xác Nhận</button>'
+                    '<button onclick="confirmDes('+des.id_destination+')" class="btn btn-primary">Xác Nhận</button>'
                 ] ).draw( false );
             }
         });
         
-        function confirm($id){
-            var answer = window.confirm("Bạn Chắc Muốn Xác Nhận !");
-            if(answer){
-                $.ajax({
-                    url: '<?php echo base_url()?>admin/reviewList/confirmDes',
-                    type: 'POST',
-                    dataType: 'html',
-                    data: {
-                        id: $id
-                    }
-                })
-                .done(function(data){
-                    alert(data);
-
-                })   
-            }
+    });
+    function confirmDes($id){
+        var answer = window.confirm("Bạn Chắc Muốn Xác Nhận !");
+        if(answer){
+            $.ajax({
+                url: '<?php echo base_url()?>admin/reviewList/confirmDes',
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    id: $id
+                }
+            })
+            .done(function(data){
+                alert(data);
+                location.reload();
+            })   
         }
-        
-        
-    } );
+    }
     
     
 </script>

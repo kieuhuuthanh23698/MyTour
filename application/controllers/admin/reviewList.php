@@ -25,8 +25,8 @@ class reviewList extends CI_Controller {
     }
     public function confirmDes(){
         $id= $_POST["id"];
-        $query = "update destination set status = 0 where id_destination = '".$id."'";
-        $this->M_data->load_query($query);
+        $data["status"] = 0;
+        $this->M_data->update($id, 'destination', $data);
         echo "Khách Sạn Đã Được Xác Nhận";
         
     }

@@ -270,5 +270,8 @@ class Handling extends CI_Controller {
 		// $view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		// $this->load->view('home/masterHome', $view);
     }
+    public function mapSearch(){
+        $this->load->view('page/mapSearch');
+    }
 
 }

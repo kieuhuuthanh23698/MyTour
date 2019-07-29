@@ -1,4 +1,4 @@
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide max-width" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="<?php echo base_url()?>public/images/banner/5.png" class="d-block w-100" alt="...">

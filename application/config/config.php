@@ -24,7 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
+<<<<<<< HEAD
 $config['base_url'] = 'https://mytour.com.vn/MyTour/';
+=======
+$config['base_url'] = 'http://localhost/www/MyTour/MyTour/';
+>>>>>>> 4a5761682ecb119ebf971f889bbd032f8607b74c
 
 /*
 |--------------------------------------------------------------------------

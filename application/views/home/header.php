@@ -30,7 +30,7 @@
                 </div>
                 <div class="menu">
                     <ul>
-                        <li><a class="<?php echo isset($sanpham)? "active":" "; ?>" href="<?php echo base_url() ?>Handling/sanpham">Khách Sạn</a></li>
+                        <li><a class="<?php echo isset($sanpham)? "active":" "; ?>" href="<?php echo base_url() ?>">Khách Sạn</a></li>
                         <li><a class="" href="">Ưu Đãi</a></li>
                         <li><a class="" href="#">Tour</a></li>
                         <li><a class="" href="#">Cẩm Nang Du Lịch</a></li>

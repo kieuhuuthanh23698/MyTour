@@ -1,5 +1,5 @@
 <form id="formSearch" method="POST" action="<?php echo(base_url())?>/handling/search">
-<div class="searchDest">
+<div class="searchDest max-width">
         <div class="container text-center">
             <div id="prefetch">
                 <i class="fas fa-bed"></i>
