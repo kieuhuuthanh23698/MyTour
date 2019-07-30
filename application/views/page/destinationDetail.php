@@ -1,6 +1,19 @@
+<script type="text/javascript">
+    //ĐỊNH DẠNG TIỀN
+    function formatCurrency(number){
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return  n2.split('').reverse().join('');
+    }
+</script>
 <div class="des-heading pt-5">
     <div class="container">
         <h1><?php echo $destination['destinationName']?></h1>
+        <p>
+            <?php for($j = 0; $j < $destination['star']; $j++){?>
+            <i class="fas fa-star"></i>
+            <?php }?>
+        </p>
         <span></span>
         <a href="#"><?php echo $destination['destinationAddress'].' '.$destination['district'].' '.$destination['city']?></a>
     </div>
@@ -51,63 +64,43 @@
             <thead style="background-color: #2d3d4e; color: #fff">
                 <tr>
                     <th>Loại Phòng</th>
-                    <th>Tối Đa</th>
                     <th>Giá 1 Đêm</th>
                     <th>Số Lượng</th>
                     <th>Đặt Phòng</th>
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($rooms as $i) {?>
                 <tr>
-                    <td colspan="5">Standard Double</td>
+                    <td colspan="5" style="font-weight: 700; color: aqua;"><?php echo $i['roomTypeName']?></td>
                 </tr>
                 <tr>
                     <td>
-                        <img width="300px" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
-                        <span>20 m<sup>2</sup></span>
-                        <span>Hướng Phố</span>
-                        <span>1 giường Đôi Lớn</span>
-                        <span class="quantum">Còn 3 Phòng</span>
+                        <img width="300px" src="<?php echo base_url() ?>public/images/dedicate/<?php echo $i['imageRoom']?>"/>
+                        <span><?php echo $i['area']?> m<sup>2</sup></span>
+                        <span><?php echo $i['view']?></span>
+                        <span><?php echo $i['bed']?></span>
+                        <span class="quantum">Còn <?php echo $i['EmptyRoom']?> Phòng</span>
                         <button class="detail-room">Xem Chi Tiết Phòng</button>
                     </td>
-                    <td>
-                        2 người
+                    <td style="text-align: center; color: red">
+                        <script type="text/javascript"> document.write(formatCurrency(<?php echo $i['price'];?> + ''));</script> đ
                     </td>
-                    <td>
-                        764.000 đ
+                    <td style="text-align: center;">
+                        <!-- <span><input type="number" required value="1" min="1" max="<?php echo $i['EmptyRoom']?>" /></span><span>Phòng</span> -->
+                        <!-- <div style="padding:20px;height: 50px;"> -->
+                        <select onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' class="form-control">
+                            <?php for($j=0; $j < $i['EmptyRoom'];$j++){?>
+                                <option value="<?php echo $j;?>"><?php echo $j;?> phòng</option>
+                            <?php }?>
+                        </select>
+                        <!-- </div> -->
                     </td>
-                    <td>
-                        <input type="number"/>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Đặt Ngay</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5">Standard Double</td>
-                </tr>
-                <tr>
-                    <td>
-                        <img width="300px" src="<?php echo base_url() ?>public/images/banner/polynesia-3021072_1280.jpg"/>
-                        <span>20 m<sup>2</sup></span>
-                        <span>Hướng Phố</span>
-                        <span>1 giường Đôi Lớn</span>
-                        <span class="quantum">Còn 3 Phòng</span>
-                        <button class="detail-room">Xem Chi Tiết Phòng</button>
-                    </td>
-                    <td>
-                        2 người
-                    </td>
-                    <td>
-                        764.000 đ
-                    </td>
-                    <td>
-                        <input type="number"/>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Đặt Ngay</button>
+                    <td style="text-align: center;">
+                        <button class="btn btn-primary" onclick="bookRoom(<?php echo $i['id_room']?>)">Đặt Ngay</button>
                     </td>
                 </tr>
+                <?php }?>
             </tbody>
             
         </table>
@@ -211,14 +204,21 @@
     .room-time i{
         font-size: 18px;
     }
+    .fa-star {
+        color: yellow;
+    }
 </style>
 <div class="info-custom">
     <div class="container">
         <div class="info-content">
-            <p>Tổng Tiền: 200.000 đ</p>
+            <p id="sumCost">Tổng Tiền: 200.000 đ</p>
+            <p id="sumCost">Tổng Tiền: 200.000 đ</p>
+            <p id="sumCost">Tổng Tiền: 200.000 đ</p>
             <input class="form-control" type="text" placeholder="Họ Và Tên">
             <input class="form-control" type="text" placeholder="Số Điện Thoại">
-            <button>Đặt Phòng</button>
+            <input class="form-control" type="text" placeholder="Email">
+            <input class="form-control" type="text" placeholder="Địa chỉ">
+            <button id="bookRoom">Đặt Phòng</button>
         </div>
     </div>
 </div>
@@ -243,3 +243,9 @@
         font-weight: 500;
     }
 </style>
+<script type="text/javascript">
+    function bookRoom(id){
+        alert('hello');
+        //$(this).parent().hide();
+    }
+</script>

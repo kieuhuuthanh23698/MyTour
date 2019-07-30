@@ -68,8 +68,8 @@ class Handling extends CI_Controller {
 		$result_search['convenienceDes'] = $this->M_data->load_query('select * from conveniencedes where status_conven_des = 0');
 		$result_search['serviceExtra'] = $this->M_data->load_query('select * from serviceextra');
 		$view['body'] = $this->load->view('page/bodySearch', $result_search, TRUE);
-
-		//$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
+		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
 	}
 
@@ -261,14 +261,21 @@ class Handling extends CI_Controller {
 		echo json_encode($this->M_data->load_query($query));
 	}
     public function destinationDetail(){
-    	echo $this->input->get('dateFrom');
-  //       $view['header'] = $this->load->view('home/header', NULL, TRUE);
-		// $view['search'] = $this->load->view('home/search', NULL, TRUE);
-  //   	$data['destination'] = $this->M_data->load_query('select * from destination where id_destination = '.$idDes);
-		// $view['body'] = $this->load->view('page/destinationDetail', $data, TRUE);
-		// $footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
-		// $view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
-		// $this->load->view('home/masterHome', $view);
+    	$dateFrom = $this->input->get('dateFrom');
+    	$dateTo = $this->input->get('dateTo');
+    	$idDes = $this->input->get('idDes');
+    	$data['destination'] = $this->M_data->load_query('select * from destination where id_destination = '.$idDes)[0];
+    	var_dump($data['destination']);
+    	$queryRoom = "select*FROM(select`a`.`id_dest`, `a`.`area`,`a`.`id_room`,`a`.`imageRoom`,`a`.`view`,`a`.`bed`,`a`.`price`,`quantum`-COALESCE(`roomquantum`,0)AS EmptyRoom
+FROM (select*FROM`roomtypedetail`WHERE`roomtypedetail`.`id_dest`=".$idDes.")AS a LEFT JOIN(select id_dest, id_room, `roomquantum`FROM `billdetail`, `bills`WHERE ((`dateFrom` BETWEEN '".$dateFrom."' AND '".$dateTo."') OR (`dateTo` BETWEEN '".$dateFrom."' AND '".$dateTo."')) AND`bills`.`id_bills`=`billdetail`.`id_bill`AND`id_dest`=".$idDes.")AS BookedBills ON `a`.`id_room`=`BookedBills`.`id_room`AND`a`.`id_dest`=`BookedBills`.`id_dest`)AS b,`roomtype`WHERE`b`.`id_room`=`roomtype`.`id_roomType`";
+    	$data['rooms'] = $this->M_data->load_query($queryRoom);
+    	var_dump($data['rooms']);
+        $view['header'] = $this->load->view('home/header', NULL, TRUE);
+		$view['search'] = $this->load->view('home/search', NULL, TRUE);
+		$view['body'] = $this->load->view('page/destinationDetail', $data, TRUE);
+		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
+		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
+		$this->load->view('home/masterHome', $view);
     }
     public function mapSearch(){
         $this->load->view('page/mapSearch');

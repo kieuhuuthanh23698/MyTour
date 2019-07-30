@@ -168,7 +168,7 @@ $("#autocomplete").typeahead({
 });
 
 $('#numRoom').on('change',function(e){
-    if (e.target.value == '') {
+    if (e.target.value == '' && e.target.value == '0') {
       e.target.value = 1;
     }
   });

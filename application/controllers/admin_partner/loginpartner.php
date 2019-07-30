@@ -22,7 +22,6 @@ class loginpartner extends CI_Controller {
 
 	public function login()
 	{
-		// $this->session->unset_userdata('partner');
 		$username = $this->input->post('use_login');
  		$password = $this->input->post('password');
  		//$password = md5($password);
@@ -43,5 +42,11 @@ class loginpartner extends CI_Controller {
  			echo "<script> alert('Sai mật khẩu !');</script>";
 			echo "<script> window.location.href = '../admin_partner/loginpartner';</script>";
  		}
+ 	}
+
+ 	public function logout()
+ 	{	
+		$this->session->unset_userdata('partner');
+		echo "<script> window.location.href = '../loginpartner';</script>";
  	}
 }

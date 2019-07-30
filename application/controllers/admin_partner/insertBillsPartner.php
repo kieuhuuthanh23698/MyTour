@@ -64,7 +64,7 @@ class insertBillsPartner extends CI_Controller {
             $dataBillDetail["money"] = $arr["money"];
             $this->M_data->insert('billdetail',$dataBillDetail);
         }
-        echo "thêm Hóa Đơn Thành Công";
+        echo "Đặt Phòng Thành Công";
     }
 
     

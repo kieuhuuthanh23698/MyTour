@@ -138,7 +138,6 @@
                                 <i class="fas fa-star"></i>
                                 <?php }?>
                             </p>
-                            <?php echo $dateFrom;?>
                             <a href="#"><?php echo $i['destinationAddress']." - ".$i['city']?></a>
                             <p><b style="color: #fd7e14"><?php echo $i['destinationName']?></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>
                             <p  style="color:#17a2b8"><script type="text/javascript"> document.write(formatCurrency(<?php echo $i['price']?> + ''));</script> đ</p>

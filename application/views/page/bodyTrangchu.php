@@ -129,70 +129,128 @@
     </div>
     <div class="container highlight-content">
         <div class="row">
+
+            <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Đà Nẵng">
+                <div class="highlight-item">
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/danang.png"/>
+                    <div class="content text-center">
+                        <h2>Đà Nẵng</h2>
+                    </div>
+                </div>
+            </a>
+            </div>
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/vungtau.png"/>
+                    <div class="content text-center">
+                        <h2>Bà Rịa - Vũng Tàu</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="highlight-item">
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/dalat.png"/>
+                    <div class="content text-center">
+                        <h2>Đà Lạt</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="highlight-item">
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/tphcm.png"/>
+                    <div class="content text-center">
+                        <h2>Hồ Chí Minh</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="highlight-item">
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/nhatrang.png"/>
+                    <div class="content text-center">
+                        <h2>Nha Trang</h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="highlight-item">
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/phanthiet.jpg"/>
                     <div class="content text-center">
                         <h2>Phan Thiết</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/hanoi.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Hà Nội</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/phuquoc.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Phú Quốc</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/sapa.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Sa Pa</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/hoian.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Hội An</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/halong.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Hạ Long</h2>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-3">
                 <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
+                    <img width="100%" src="<?php echo base_url()?>public/images/city/hue.png"/>
                     <div class="content text-center">
-                        <h2>Phan Thiết</h2>
+                        <h2>Huế</h2>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="highlight-item">
-                    <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
-                    <div class="content text-center">
-                        <h2>Phan Thiết</h2>
-                    </div>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>
@@ -216,7 +274,7 @@
         position: absolute;
         left: 0;
         bottom: 0;
-        background-color: #778da5;
+        background-color: rgba(0,174,239,.7);
         color: #ffffff;
         width: 100%;
         border-bottom-left-radius: 10px;

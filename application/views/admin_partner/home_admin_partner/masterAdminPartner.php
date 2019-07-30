@@ -39,7 +39,8 @@
                 <div class="menu">
                     <ul style="top: 70px">
                         <li><a href="<?php echo base_url()?>"><span class="home"><i class="fas fa-home"></i></span>Trang Chủ</a></li>
-                        <li><a href="#"><span class="admin"><i class="fas fa-user-tie"></i></span><?php echo isset($_SESSION["admin"])?"":"" ?></a></li>
+                        <li><a href="#"><span class="admin"><i  class="fas fa-user-tie"></i></span > <?php echo isset($_SESSION["partner"])?$_SESSION["partner"]["username"]:"" ?></a>
+                        </li>
                         
                     </ul>
                 </div>
@@ -67,6 +68,7 @@
                         <li><a href="<?php echo base_url()?>admin_partner/roomPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Phòng</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/convenPartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Dịch vụ</a></li>
                         <li><a href="<?php echo base_url()?>admin_partner/servicePartner"><span><i class="fas fa-cart-plus"></i></span>Quản Lý Tiện Nghi</a></li>
+                        <li><a style="background: lightseagreen" href="<?php echo(base_url())?>/admin_partner/loginpartner/logout" class='text-center'>Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>
