@@ -41,7 +41,7 @@
                     <div>
                         <button id="signin" class="btn btn-primary">ĐĂNG KÝ</button>
                     </div>
-                </div> 
+            </div> 
         </div> 
     </div>
     <style>

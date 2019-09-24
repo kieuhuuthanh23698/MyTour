@@ -108,24 +108,3 @@
             </div>
         </div>');
             } ?>
-<!--
-<script>
-    $(document).ready(function(){
-        $('#search-text').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if (keycode == '13') {
-                searchAction();
-            }
-        });
-        $("#search-button").on("click",function(){
-            searchAction();
-        });
-        function searchAction(){
-            var search = $("#search-text").val();
-            window.sessionStorage.setItem("search",search);
-            if(window.location.pathname != "/www/TCWEB/SeasonalFoods2/Handling/sanpham"){
-                window.location.href = "<?php echo base_url() ?>Handling/sanpham";
-            }
-        }
-    });
-</script>-->

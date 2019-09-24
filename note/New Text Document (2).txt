@@ -1,0 +1,13 @@
+problem:
++ book room
+lan dau them duoc, lan 2 ko dc, ke tu lan 3 thi binh thuong
+them 1 loai khac thi : lan dau thi cong don loai dau, ke t lan 2 thi binh thuong
+cho chon lai thoi gian dat phong (co kiem tra)
+cho xoa loai phong ra khoi list dat
+cho dieu chinh so luong loai phong
++ tinh tien dat phong :OK
++time picker 
+khong lay thoi gian trong stograge local
+phai lay thoi gian hien tai
++map
+hien vi tri cua khach san dua vao dia chi

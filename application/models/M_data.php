@@ -40,5 +40,19 @@ class M_data extends CI_Model {
         curl_close($curl);
         return json_decode($response, true);
     }
+
+    public function addRoom($bookedRoom, $room)
+    {
+        foreach ($bookedRoom as $k) {
+            if($k['id_room'] == $room['id_room'])
+                {
+                    $bookedRoom[array_search($k, $bookedRoom)]['numRoom'] += $room['numRoom'];
+                    $bookedRoom[array_search($k, $bookedRoom)]['totalCost'] = $bookedRoom[array_search($k, $bookedRoom)]['numRoom']*$bookedRoom[array_search($k, $bookedRoom)]['price']*$bookedRoom[array_search($k, $bookedRoom)]['totalDays'];
+                    return $bookedRoom;
+                }
+        }
+        array_push($bookedRoom, $room);
+        return $bookedRoom;
+    }
 }
 ?>

@@ -125,11 +125,12 @@
                 </div>
 
                 <div class="dest-page-content">
+                <?php //var_dump($query)?>
                 <?php if($count > 0 ){ foreach ($destination as $i) {?>
                     <br>
                     <div class="dest-item">
                         <div class="img">
-                            <img width="100%" src="<?php echo base_url()?>public/images/dedicate/1.png"/>
+                            <img width="100%" src="<?php echo base_url()?>public/images/des/<?php echo $i['destinationImage']?>"/>
                         </div>
                         <div class="content">
                             <h1 style="color: #19d3af"><?php echo $i['destinationName']?></h1>
@@ -292,8 +293,8 @@
                 //tạo khối html sản phẩm
                 var item = '<div class="dest-item">' +
                         '<div class="img">' +
-                            '<img width="100%" src="<?php echo base_url()?>public/images/dedicate/1.png"/>' +
-                        '</div>' +
+                            '<img width="100%" src="<?php echo base_url()?>public/images/des/' + data.destination[i].destinationImage +
+                        '"/></div>' +
                         '<div class="content">'+
                             '<h1 style="color: #19d3af">' + data.destination[i].destinationName + '</h1>'+
                             '<p>';
@@ -303,7 +304,7 @@
                             item += '</p>' +
                             '<a href="#">' + data.destination[i].destinationName + " - " + data.destination[i].city +'</a>' +
                             '<p><b style="color: #fd7e14"></b> có đội ngũ nhân viên thân thiện và phục vụ nhiệt tình, trang thiết bị hiện đại cùng nội thất bài trí rất bắt mắt. Khách sạn nằm ở trung tâm nên thuận tiện đi lại và tham quan.</p>' +
-                            '<p style="color:#17a2b8">' + formatCurrency(data.destination[i].MinPrice) + ' đ</p><a class="button" href="<?php echo base_url()?>handling/destinationDetail/' + data.destination[i].id_destination + '/' + $('#timeCheckIn').val() +'/' + $('#timeCheckOut').val() +'">Xem Phòng</a></div></div>';
+                            '<p style="color:#17a2b8">' + formatCurrency(data.destination[i].MinPrice) + ' đ</p><a class="button" href="<?php echo base_url()?>handling/destinationDetail?idDes=' + data.destination[i].id_destination + '&dateFrom=' + $('#timeCheckIn').val() +'&dateTo=' + $('#timeCheckOut').val() +'">Xem Phòng</a></div></div>';
                 $('.dest-page-content').append(item);
             }
         },

@@ -18,7 +18,14 @@ class Handling extends CI_Controller {
 		$view['header'] = $this->load->view('home/header', NULL, TRUE);
 		$view['banner'] = $this->load->view('home/banner', NULL, TRUE);
 		$view['search'] = $this->load->view('home/search', NULL, TRUE);
-		$view['body'] = $this->load->view('page/bodyTrangchu', NULL, TRUE);
+		$data['des'] = $this->M_data->load_query('select `id_destination` ,`destinationName`, `destinationImage` as img1, MIN(price) AS MinPrice, MIN(price) - MIN(price)/10 AS Sale 
+			FROM `destination`, `roomtypedetail`
+			WHERE `destination`.`id_destination` = `roomtypedetail`.`id_dest`
+			GROUP BY `roomtypedetail`.`id_dest`
+			ORDER BY `MinPrice` ASC
+			LIMIT 0,5
+			');
+		$view['body'] = $this->load->view('page/bodyTrangchu', $data, TRUE);
 		$footerContent['footerContent'] = $this->load->view('page/footer content/footerTrangchu', NULL, TRUE);
 		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
@@ -28,10 +35,10 @@ class Handling extends CI_Controller {
 	{
 		$view['header'] = $this->load->view('home/header', NULL, TRUE);
 
-		$city = $this->input->post('search_box');
-		$dateFrom =  $this->input->post('timeCheckIn');
-		$dateTo =  $this->input->post('timeCheckOut');
-		$numRoom =  $this->input->post('numRoom');
+		$city = $this->input->get('search_box');
+		$dateFrom =  $this->input->get('timeCheckIn');
+		$dateTo =  $this->input->get('timeCheckOut');
+		$numRoom =  $this->input->get('numRoom');
 
 		$quantumProduct = 9;
         $page = 1;
@@ -62,6 +69,7 @@ class Handling extends CI_Controller {
 
 		$view['search'] = $this->load->view('home/search', NULL, TRUE);//search bar
 		$result_search['destination'] = $this->M_data->load_query($query." limit ".$limit1.",".$limit2);
+		$result_search['query'] = $query." limit ".$limit1.",".$limit2;
 		$result_search['search_box'] = $city;
 		$result_search['dateFrom'] = $dateFrom;
 		$result_search['dateTo'] = $dateTo;
@@ -90,7 +98,7 @@ class Handling extends CI_Controller {
        $numRoom = $this->input->post('numRoom');
 
        //filter với các giá trị search : search box, dateFrom, dateTo, number room book
-       $query = "select `destination`.`destinationName`, `destination`.`city`, `destination`.`id_destination`, `roomtypedetail`.`id_room`, EmptyRoom, MIN(`roomtypedetail`.`price`) AS MinPrice FROM (select `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (SUM(`quantum`) -  SUM(COALESCE(`roomquantum`,0))) AS EmptyRoom FROM `roomtypedetail` LEFT JOIN (select id_dest, id_room, `roomquantum`FROM `billdetail`, `bills`WHERE ";
+       $query = "select  `destination`.`star`, `destination`.`destinationImage`, `destination`.`destinationName`, `destination`.`city`, `destination`.`id_destination`, `roomtypedetail`.`id_room`, EmptyRoom, MIN(`roomtypedetail`.`price`) AS MinPrice FROM (select `roomtypedetail`.`id_dest`, `roomtypedetail`.`id_room`, (SUM(`quantum`) -  SUM(COALESCE(`roomquantum`,0))) AS EmptyRoom FROM `roomtypedetail` LEFT JOIN (select id_dest, id_room, `roomquantum`FROM `billdetail`, `bills`WHERE ";
 		if($dateFrom != '' && $dateTo != '')
 		$query .= "((`dateFrom` BETWEEN '".$dateFrom."' AND '".$dateTo."') OR (`dateTo` BETWEEN '".$dateFrom."' AND '".$dateTo."'))
 		AND";
@@ -260,16 +268,20 @@ class Handling extends CI_Controller {
 		$query = "select destinationName from destination";
 		echo json_encode($this->M_data->load_query($query));
 	}
+
     public function destinationDetail(){
+    	$this->session->unset_userdata('bookedRoom');
     	$dateFrom = $this->input->get('dateFrom');
     	$dateTo = $this->input->get('dateTo');
     	$idDes = $this->input->get('idDes');
     	$data['destination'] = $this->M_data->load_query('select * from destination where id_destination = '.$idDes)[0];
-    	var_dump($data['destination']);
+    	//var_dump($data['destination']);
     	$queryRoom = "select*FROM(select`a`.`id_dest`, `a`.`area`,`a`.`id_room`,`a`.`imageRoom`,`a`.`view`,`a`.`bed`,`a`.`price`,`quantum`-COALESCE(`roomquantum`,0)AS EmptyRoom
 FROM (select*FROM`roomtypedetail`WHERE`roomtypedetail`.`id_dest`=".$idDes.")AS a LEFT JOIN(select id_dest, id_room, `roomquantum`FROM `billdetail`, `bills`WHERE ((`dateFrom` BETWEEN '".$dateFrom."' AND '".$dateTo."') OR (`dateTo` BETWEEN '".$dateFrom."' AND '".$dateTo."')) AND`bills`.`id_bills`=`billdetail`.`id_bill`AND`id_dest`=".$idDes.")AS BookedBills ON `a`.`id_room`=`BookedBills`.`id_room`AND`a`.`id_dest`=`BookedBills`.`id_dest`)AS b,`roomtype`WHERE`b`.`id_room`=`roomtype`.`id_roomType`";
     	$data['rooms'] = $this->M_data->load_query($queryRoom);
-    	var_dump($data['rooms']);
+    	//var_dump($data['rooms']);
+    	$data['conven'] = $this->M_data->load_query("select * from convenience");
+    	$data['images'] = $this->M_data->load_query('select * from imageDestination where id_dest = '.$idDes)[0];
         $view['header'] = $this->load->view('home/header', NULL, TRUE);
 		$view['search'] = $this->load->view('home/search', NULL, TRUE);
 		$view['body'] = $this->load->view('page/destinationDetail', $data, TRUE);
@@ -277,6 +289,51 @@ FROM (select*FROM`roomtypedetail`WHERE`roomtypedetail`.`id_dest`=".$idDes.")AS a
 		$view['footer'] = $this->load->view('home/footer', $footerContent, TRUE);
 		$this->load->view('home/masterHome', $view);
     }
+
+
+    public function bookRoom()
+    {
+    	$id_room = $this->input->post('id_room');
+    	$id_dest = $this->input->post('id_dest');
+    	$totalDays = $this->input->post('totalDays');
+    	$numRoom = $this->input->post('numRoom');
+    	if(isset($numRoom) && $numRoom > 0)
+    	{
+
+	    	$dateFrom = $this->input->post('dateFrom');
+	    	$dateTo = $this->input->post('dateTo');
+	    	$room = $this->M_data->load_query("select * FROM `roomtype`, `roomtypedetail` WHERE `roomtype`.`id_roomType` = `roomtypedetail`.`id_room` AND `roomtype`.`id_roomType` = ".$id_room." AND `roomtypedetail`.`id_dest` = ".$id_dest)[0];
+
+	    	$item = array('id_room' => $id_room, 'roomName' => $room['roomTypeName'], 'price'=>$room['price'], 'id_dest' => $id_dest, 'dateFrom' => $dateFrom, 'dateTo' => $dateTo,'totalDays' => $totalDays, 'numRoom'=>$numRoom, 'totalCost' => $numRoom*$room['price']*$totalDays);
+	    	
+	    	if(!$this->session->has_userdata('bookedRoom'))
+    		{
+    			$bookedRoom = array();
+    			array_push($bookedRoom, $item);
+    			$this->session->set_userdata('bookedRoom', $bookedRoom);
+    		}
+    		else
+    		{	
+
+    			$bookedRoom = $this->session->userdata('bookedRoom');
+    			$newBookedRoom = $this->M_data->addRoom($bookedRoom, $item);
+    			$this->session->set_userdata('bookedRoom', $newBookedRoom);
+
+    		}
+
+    		$total = 0;
+
+    		foreach ($bookedRoom as $k) {
+    			$total += $k['totalCost'];
+    		}
+
+    		// $data['tr'] = "<tr><td>".$room['roomTypeName']."</td><td>".$room['price']." đ</td><td> ".$numRoom."</td><td><div class='room-time'><div><i class='far fa-calendar'></i><input type='text'name='timeCheckIn' value='".$dateFrom."' readonly/></div><div><i class='far fa-calendar'></i><input type='text' name='timeCheckOut' value='".$dateTo."' readonly/></div></div></td><td>".$numRoom*$room['price']*$totalDays." đ</td><td><button class='btn btn-danger'><i class='fas fa-trash-alt'></i></button></td></tr>";
+    		$data['total'] = $total;
+    		$data['cart'] = $bookedRoom;
+    		echo json_encode($data);
+    	}
+    }
+
     public function mapSearch(){
         $this->load->view('page/mapSearch');
     }

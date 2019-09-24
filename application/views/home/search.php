@@ -1,4 +1,4 @@
-<form id="formSearch" method="POST" action="<?php echo(base_url())?>/handling/search">
+<form id="formSearch" method="GET" action="<?php echo(base_url())?>handling/search">
 <div class="searchDest max-width">
         <div class="container text-center">
             <div id="prefetch">
@@ -127,13 +127,26 @@ window.onload = function(){
         $('#timeCheckOut').val(localStorage.getItem("timeCheckOut"));
     if(localStorage.getItem("numRoom") != "")
         $('#numRoom').val(localStorage.getItem("numRoom"));
+
+
+    $('.dedicate-content a').each(function(){
+           $(this).attr('href', $(this).attr('href') + '&dateFrom=' + $('#timeCheckIn').val() +'&dateTo=' + $('#timeCheckOut').val()); 
+        });
 }
 
 function success(a){
 //ADD ALL CITIES INTO ARRAY RESULT
-    for (var i = 0; i < a.LtsItem.length; i++) {
+    for (var i = 0; i < a.LtsItem.length - 1; i++) {
         //result.push({title: a.LtsItem[i]['Title'], type: "City"}) 
-        result.push(a.LtsItem[i]['Title']) 
+        result.push(a.LtsItem[i]['Title'])  
+        $('.abc').append("<a href='<?php echo base_url()?>handling/search?search_box=" + a.LtsItem[i]['Title'] + "'>" + a.LtsItem[i]['Title'] + "</a>");
+        $('.abc a:last-child').bind('click',function(){
+            //alert($(this).text());
+            localStorage.setItem("city", $(this).text());
+        });
+        if(i < a.LtsItem.length - 2)
+            $('.abc').append(", ");
+
     }
     $.ajax({
         dataType: 'json',
@@ -143,7 +156,7 @@ function success(a){
         success : function(data){
             for (var i = 0; i < data.length; i++) {
                 //result.push({title: a.LtsItem[i]['Title'], type: "City"}) 
-                result.push(data[i]['destinationName']); 
+                result.push(data[i]['destinationName']);
             }
         },
     });       

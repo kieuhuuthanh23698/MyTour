@@ -1,4 +1,19 @@
+<script type="text/javascript">
+    //ĐỊNH DẠNG TIỀN
+    function formatCurrency(number){
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return  n2.split('').reverse().join('');
+    }
 
+    function sale(number)
+    {
+        number = number - number/10;
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return  n2.split('').reverse().join('');
+    }
+</script>
 <!--**************************************** dedicate to you *****************************************************-->
 <div class="dedicate pt-5 max-width">
     <div class="dedicate-heading text-center">
@@ -6,76 +21,29 @@
         <p>Địa điểm nổi bật có giá tốt nhất</p>
     </div>
     <div class="dedicate-content">
+        <?php foreach ($des as $i) {?>
         <div class="dedicate-item-bg">
+            <a href="<?php echo base_url()?>handling/destinationDetail?idDes=<?php echo $i['id_destination']?>">
             <div class="dedicate-item">
-                <img width="100%" src="<?php echo base_url()?>public/images/dedicate/1.png"/>
+                <img width="100%" src="<?php echo base_url()?>public/images/des/<?php echo $i['img1']?>"/>
                 <div class="dedicate-item-content">
                     <div class="content">
-                        <h2>Khách sạn Dani Vania</h2>
-                        <span>631.000 đ</span><span>700.000 đ</span>
+                        <h2><?php echo $i['destinationName']?></h2>
+                        <span>
+                            <script type="text/javascript"> document.write(formatCurrency(<?php echo $i['MinPrice']?> + ''));</script> đ
+                        </span>
+                        <span>
+                            <script type="text/javascript"> document.write(formatCurrency(<?php echo $i['Sale']?> + ''));</script> đ
+                        </span>
                     </div>
                     <div class="icon">
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
             </div>
+            </a>
         </div>
-        <div class="dedicate-item-bg">
-            <div class="dedicate-item">
-                <img width="100%" src="<?php echo base_url()?>public/images/dedicate/2.png"/>
-                <div class="dedicate-item-content">
-                    <div class="content">
-                        <h2>Khách sạn Dani Vania</h2>
-                        <span>631.000 đ</span><span>700.000 đ</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dedicate-item-bg">
-            <div class="dedicate-item">
-                <img width="100%" src="<?php echo base_url()?>public/images/dedicate/3.png"/>
-                <div class="dedicate-item-content">
-                    <div class="content">
-                        <h2>Khách sạn Dani Vania</h2>
-                        <span>631.000 đ</span><span>700.000 đ</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dedicate-item-bg">
-            <div class="dedicate-item">
-                <img width="100%" src="<?php echo base_url()?>public/images/dedicate/4.png"/>
-                <div class="dedicate-item-content">
-                    <div class="content">
-                        <h2>Khách sạn Dani Vania</h2>
-                        <span>631.000 đ</span><span>700.000 đ</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dedicate-item-bg">
-            <div class="dedicate-item">
-                <img width="100%" src="<?php echo base_url()?>public/images/dedicate/5.png"/>
-                <div class="dedicate-item-content">
-                    <div class="content">
-                        <h2>Khách sạn Dani Vania</h2>
-                        <span>631.000 đ</span><span>700.000 đ</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php }?>
     </div>
     
 </div>
@@ -142,32 +110,38 @@
             </div>
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Vũng Tàu">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/vungtau.png"/>
                     <div class="content text-center">
                         <h2>Bà Rịa - Vũng Tàu</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Lâm Đồng">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/dalat.png"/>
                     <div class="content text-center">
                         <h2>Đà Lạt</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=TP Hồ Chí Minh">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/tphcm.png"/>
                     <div class="content text-center">
                         <h2>Hồ Chí Minh</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
@@ -182,75 +156,95 @@
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Bình Thuận">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/phanthiet.jpg"/>
                     <div class="content text-center">
                         <h2>Phan Thiết</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Hà Nội">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/hanoi.png"/>
                     <div class="content text-center">
                         <h2>Hà Nội</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Kiên Giang">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/phuquoc.png"/>
                     <div class="content text-center">
                         <h2>Phú Quốc</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Lào Cai">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/sapa.png"/>
                     <div class="content text-center">
                         <h2>Sa Pa</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Quảng Nam">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/hoian.png"/>
                     <div class="content text-center">
                         <h2>Hội An</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Quảng Ninh">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/halong.png"/>
                     <div class="content text-center">
                         <h2>Hạ Long</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
 
             <div class="col-md-3">
+            <a href="<?php echo base_url()?>handling/search?search_box=Huế">
                 <div class="highlight-item">
                     <img width="100%" src="<?php echo base_url()?>public/images/city/hue.png"/>
                     <div class="content text-center">
                         <h2>Huế</h2>
                     </div>
                 </div>
+            </a>
             </div>
 
-
+        </div>
+    </div>
+    <br>
+    <div class="container highlight-content">
+        <h1>KHÁCH SẠN THEO TỈNH THÀNH</h1>
+        <hr>
+        <div class='abc'>
         </div>
     </div>
 </div>
@@ -287,3 +281,11 @@
         margin: 0;
     }
 </style>
+<script type="text/javascript">
+
+    $('.row a').on('click',function(){
+        //alert($(this).find('h2').text());
+        localStorage.setItem("city", $(this).find('h2').text());
+    });
+
+</script>

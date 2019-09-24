@@ -39,7 +39,7 @@
                 <div class="menu">
                     <ul style="top: 70px">
                         <li><a href="<?php echo base_url()?>"><span class="home"><i class="fas fa-home"></i></span>Trang Chủ</a></li>
-                        <li><a href="#"><span class="admin"><i  class="fas fa-user-tie"></i></span > <?php echo isset($_SESSION["partner"])?$_SESSION["partner"]["username"]:"" ?></a>
+                        <li><a href="#" style="text-transform: uppercase;"><span class="admin"><i  class="fas fa-user-tie"></i></span > <?php echo isset($_SESSION["partner"])?$_SESSION["partner"]["username"]:"" ?></a>
                         </li>
                         
                     </ul>

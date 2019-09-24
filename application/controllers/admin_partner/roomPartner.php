@@ -126,7 +126,9 @@ class roomPartner extends CI_Controller {
 
 	public function getRoom(){
 		$id_room = $this->input->post('id_room');
-		$id_dest = $this->session->userdata('partner')['id_destination'];
+		$id_dest = $this->input->post('id_dest');
+		if(isset($id_dest))
+			$id_dest = $this->session->userdata('partner')['id_destination'];
 
 		$query = 'select * from roomtype where id_roomType = '.$id_room;
 		$result['roomtype'] =  $this->M_data->load_query($query);

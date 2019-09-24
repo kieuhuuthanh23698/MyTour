@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>My Tour</title>
-        <link type="image/x-icon" rel="shortcut icon" href="images/logo/logo-face.png" />
-        <link type="image/x-icon" rel="icon" href="images/logo/logo-face.png"/>
+        <link type="image/x-icon" rel="shortcut icon" href="<?php echo base_url()?>public/images/logo/favicon.ico" />
+        <link type="image/x-icon" rel="icon" href="<?php echo base_url()?>public/images/logo/favicon.ico"/>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
@@ -17,11 +17,6 @@
         <script src="<?php echo base_url() ?>public/js/jquery-ui.min.js"></script>
         <script src="<?php echo base_url() ?>public/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url() ?>/public/js/app.js"></script>
-<!--         <link rel="stylesheet" href="https://twitter.github.io/typeahead.js/css/examples.css" /> 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
- <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
- <script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
- -->
         <script src="<?php echo base_url() ?>/public/js/bootstrap3-typeahead.js"></script>        
     </head>
     <body>
